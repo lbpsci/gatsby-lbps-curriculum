@@ -1,4 +1,5 @@
 const { languages, defaultLanguage } = require('./languages')
+const linkResolver = require('./src/utils/linkResolver')
 const path = require('path')
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
@@ -70,6 +71,14 @@ module.exports = {
       options: {
         spreadsheetId: process.env.SPREADSHEET_ID,
         credentials: keys,
+      },
+    },
+    {
+      resolve: `gatsby-source-prismic`,
+      options: {
+        repositoryName: process.env.GATSBY_PRISMIC_REPO_NAME,
+        customTypesApiToken: process.env.PRISMIC_CUSTOM_TYPES_API_TOKEN,
+        linkResolver: doc => linkResolver(doc),
       },
     },
     `gatsby-transformer-sharp`,

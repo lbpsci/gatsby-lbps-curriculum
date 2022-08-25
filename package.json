@@ -1,9 +1,14 @@
 {
-  "name": "gatsby-starter-hello-world",
+  "name": "lbps-curriculum-website",
   "private": true,
-  "description": "A simplified bare-bones starter for Gatsby",
+  "description": "The website for the office of Curriculum & Instruction of Long Branch Public Schools",
   "version": "0.1.0",
   "license": "0BSD",
+  "author": {
+    "name": "Neil Mastroianni",
+    "email": "neil@neilmastroianni.com",
+    "url": "https://neilmastroianni.com"
+  },
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",

@@ -231,7 +231,7 @@ export function Head({
 export default GiftedAndTalented
 
 export const query = graphql`
-  query GiftedQuery {
+  query GiftedQuery($language: String!) {
     site {
       siteMetadata {
         siteTitle
@@ -255,6 +255,17 @@ export const query = graphql`
           placeholder: TRACED_SVG
           width: 200
         )
+      }
+    }
+    locales: allLocale(
+      filter: { ns: { in: ["common"] }, language: { eq: $language } }
+    ) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
       }
     }
   }

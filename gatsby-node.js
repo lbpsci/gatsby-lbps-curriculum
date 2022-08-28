@@ -12,31 +12,58 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       .replace(/\-\-+/g, '-') // Replace multiple - with single -
   }
   const { createPage } = actions
-  const contentAreasResult = await graphql(`
+
+  const queryData = await graphql(`
     {
-      allGoogleCurriculaSheet(filter: { published: { eq: true } }) {
+      allPrismicHomepage {
         nodes {
-          contentArea
-          gradeSpan
+          id
+          lang
+          url
         }
       }
     }
   `)
-  if (contentAreasResult.errors) {
+  if (queryData.errors) {
     reporter.panicOnBuild(`ERROR WHILE RUNNING GRAPHQL QUERY`)
-    return
   }
-  const areas = contentAreasResult.data.allGoogleCurriculaSheet.nodes
-  if (areas.length) {
-    areas.forEach(({ gradeSpan, contentArea }) => {
-      createPage({
-        path: `/curricula/${slugify(gradeSpan)}/${slugify(contentArea)}/`,
-        component: path.resolve('./src/templates/content-area-template.js'),
-        context: {
-          gradeSpan,
-          contentArea,
-        },
-      })
+
+  queryData.data.allPrismicHomepage.nodes.forEach(homepage => {
+    createPage({
+      path: homepage.url,
+      component: path.resolve(__dirname, 'src/templates/homepage.js'),
+      context: {
+        id: homepage.id,
+        lang: homepage.lang,
+      },
     })
-  }
+  })
+
+  // const contentAreasResult = await graphql(`
+  //   {
+  //     allGoogleCurriculaSheet(filter: { published: { eq: true } }) {
+  //       nodes {
+  //         contentArea
+  //         gradeSpan
+  //       }
+  //     }
+  //   }
+  // `)
+  // if (contentAreasResult.errors) {
+  //   reporter.panicOnBuild(`ERROR WHILE RUNNING GRAPHQL QUERY`)
+  //   return
+  // }
+  // const areas = contentAreasResult.data.allGoogleCurriculaSheet.nodes
+  // if (areas.length) {
+  //   areas.forEach(({ gradeSpan, contentArea }) => {
+  //     createPage({
+  //       path: `/curricula/${slugify(gradeSpan)}/${slugify(contentArea)}/`,
+  //       component: path.resolve('./src/templates/content-area-template.js'),
+  //       context: {
+  //         gradeSpan,
+  //         contentArea,
+  //       },
+  //     })
+  //   })
+  // }
 }

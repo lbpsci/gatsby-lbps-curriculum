@@ -6,14 +6,13 @@ import Hero from '../components/Hero'
 import { SliceZone } from '@prismicio/react'
 import { components } from '../slices'
 
-const PrismicHomepage = ({ data, path }) => {
+const HomepageTemplate = ({ data, path }) => {
   const {
     site: {
       siteMetadata: { siteTitle },
     },
     prismicHomepage,
   } = data
-  console.log('prismicHomepage ====> ', prismicHomepage)
   const document = prismicHomepage.data
 
   return (
@@ -43,10 +42,10 @@ export function Head({
 }
 
 // EXPORTS
-export default PrismicHomepage
+export default HomepageTemplate
 
 export const query = graphql`
-  query HomeQuery($lang: String) {
+  query HomepageTemplateQuery($lang: String) {
     site {
       siteMetadata {
         siteTitle
@@ -58,6 +57,11 @@ export const query = graphql`
     prismicHomepage(lang: { eq: $lang }) {
       type
       lang
+      alternate_languages {
+        uid
+        type
+        lang
+      }
       data {
         hero_admin {
           text

@@ -1,7 +1,5 @@
 import * as React from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
-import { useI18next } from 'gatsby-plugin-react-i18next'
 import { StaticImage } from 'gatsby-plugin-image'
 import { HiChevronRight, HiMenu, HiX } from 'react-icons/hi'
 import { mainMenu } from '../../../../data'
@@ -11,7 +9,6 @@ import SiteSettings from '../SiteSettings'
 const Navbar = ({ siteWrapper }) => {
   const [isOpen, setIsOpen] = React.useState(false)
   const [settingsOpen, setSettingsOpen] = React.useState(false)
-  const { t } = useI18next()
   const curriculumHome = React.useRef(null)
   const settingsBtn = React.useRef(null)
   const toggleMenu = e => {
@@ -62,10 +59,10 @@ const Navbar = ({ siteWrapper }) => {
               level={1}
               className="sm:text-xl md:text-2xl lg:text-3xl font-semibold dark:text-white"
             >
-              {t('siteTitle')}
+              Curricululm &amp; Instruction
             </Heading>
             <p className="prose prose-sm dark:prose-invert">
-              {t('districtName')}
+              Long Branch Public Schools
             </p>
           </div>
           {/* NAVBAR RIGHT - LOGO */}
@@ -134,11 +131,11 @@ const Navbar = ({ siteWrapper }) => {
                     activeClassName="active-page "
                     {...linkProps}
                   >
-                    {t(item.linkText)}
+                    {item.linkText}
                   </Link>
                 ) : (
                   <a href={item.url} className="text-2xl" {...linkProps}>
-                    {t(item.linkText)}
+                    {item.linkText}
                   </a>
                 )}
                 {item.subMenu && (
@@ -154,11 +151,11 @@ const Navbar = ({ siteWrapper }) => {
                               activeClassName="active-page"
                               {...linkProps}
                             >
-                              {t(subItem.linkText)}
+                              {subItem.linkText}
                             </Link>
                           ) : (
                             <a href={subItem.url} {...linkProps}>
-                              {t(subItem.linkText)}
+                              {subItem.linkText}
                             </a>
                           )}
                         </li>
@@ -180,7 +177,7 @@ const Navbar = ({ siteWrapper }) => {
               }}
               {...linkProps}
             >
-              {t('closeMenu')}
+              {'closeMenu'}
             </button>
           </li>
         </ul>
@@ -189,9 +186,5 @@ const Navbar = ({ siteWrapper }) => {
   )
 }
 // PROP-TYPES
-Navbar.propTypes = {
-  siteTitle: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
-}
 // EXPORTS
 export default Navbar

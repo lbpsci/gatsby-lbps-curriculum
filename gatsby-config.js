@@ -1,5 +1,4 @@
 const { languages, defaultLanguage } = require('./languages')
-const linkResolver = require('./src/utils/linkResolver')
 const path = require('path')
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
@@ -22,23 +21,6 @@ module.exports = {
     `gatsby-plugin-postcss`,
     `gatsby-plugin-netlify`,
     `gatsby-plugin-sharp`,
-    {
-      resolve: 'gatsby-plugin-react-i18next',
-      options: {
-        languages,
-        defaultLanguage,
-        siteUrl: 'https://dancing-lamington-049ad7.netlify.app/',
-        i18nextOptions: {
-          // debug: true,
-          fallbackLng: defaultLanguage,
-          supportedLngs: languages,
-          defaultNS: 'common',
-          interpolation: {
-            escapeValue: false, // not needed for react as it escapes by default
-          },
-        },
-      },
-    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -78,7 +60,7 @@ module.exports = {
       options: {
         repositoryName: process.env.GATSBY_PRISMIC_REPO_NAME,
         customTypesApiToken: process.env.PRISMIC_CUSTOM_TYPES_API_TOKEN,
-        linkResolver: doc => linkResolver(doc),
+        linkResolver: require('./src/utils/linkResolver').linkResolver,
       },
     },
     `gatsby-transformer-sharp`,

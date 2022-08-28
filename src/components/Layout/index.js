@@ -1,6 +1,4 @@
 import * as React from 'react'
-import PropTypes from 'prop-types'
-import { useI18next } from 'gatsby-plugin-react-i18next'
 import Navbar from './Navbar'
 import { handleToTop, toggleVisible } from '../../../utils'
 import { HiChevronUp } from 'react-icons/hi'
@@ -9,10 +7,6 @@ import Footer from './Footer'
 
 const Layout = ({ children, siteTitle, path }) => {
   const [isScrolled, setIsScrolled] = React.useState(false)
-  const { i18n } = useI18next()
-  React.useEffect(() => {
-    document.documentElement.lang = i18n.language
-  }, [i18n.language])
 
   React.useEffect(() => {
     window.addEventListener('scroll', toggleToTop)
@@ -67,11 +61,6 @@ const Layout = ({ children, siteTitle, path }) => {
       </button>
     </div>
   )
-}
-
-Layout.propTypes = {
-  siteTitle: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
 }
 
 export default Layout

@@ -1,5 +1,4 @@
 import * as React from 'react'
-import PropTypes from 'prop-types'
 
 const Heading = ({ level, children, className, prose }) => {
   switch (level) {
@@ -74,14 +73,6 @@ const Heading = ({ level, children, className, prose }) => {
     default:
       return <p>HEADING LEVEL NOT SPECIFIED</p>
   }
-}
-
-Heading.propTypes = {
-  level: PropTypes.number.isRequired,
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
-    .isRequired,
-  className: PropTypes.string,
-  prose: PropTypes.bool,
 }
 
 export default Heading

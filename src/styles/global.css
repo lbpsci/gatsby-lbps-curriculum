@@ -48,3 +48,32 @@ details[open] > summary > svg {
 .curriculum-icon {
   @apply inline m-4;
 }
+
+.prose-section ol,
+.prose-section ul {
+  @apply pl-6 md:pl-8 lg:pl-10;
+}
+
+.prose-section ol li {
+  @apply list-decimal;
+}
+
+.prose-section ul li {
+  @apply list-disc;
+}
+
+.department-list {
+  @apply max-w-screen-md mx-auto;
+}
+
+.department-list li {
+  @apply flex flex-col md:flex-row justify-between items-center space-x-4 my-4 py-4 text-center;
+}
+
+.department-list .department-logo {
+  @apply shrink-0 md:mr-4 mt-4;
+}
+
+.department-list p {
+  @apply max-w-screen-sm mb-4 text-left;
+}

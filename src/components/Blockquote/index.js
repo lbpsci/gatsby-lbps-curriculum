@@ -1,6 +1,6 @@
 import * as React from 'react'
-import PropTypes from 'prop-types'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import { PrismicRichText } from '@prismicio/react'
 
 const QuoteIcon = ({ children, className }) => {
   return (
@@ -22,14 +22,19 @@ const Blockquote = ({
   imageAlt,
   className = '',
 }) => {
+  console.log('quote text ====> ', quote)
   return (
     <blockquote
       className={`max-w-screen-sm my-4 md:my-6 lg:my-8 xl:my-10 p-4 md:p-6 shadow dark:shadow-emerald-600 relative rounded border dark:border-gray-500 mx-auto group ${className}`}
     >
       <QuoteIcon>&ldquo;</QuoteIcon>
-      <p className="prose prose-emerald md:prose-lg lg:prose-xl xl:prose-2xl mx-auto dark:prose-invert font-serif italic">
-        {quote}
-      </p>
+      <div className="prose prose-emerald md:prose-lg lg:prose-xl xl:prose-2xl mx-auto dark:prose-invert font-serif">
+        {typeof quote !== 'string' ? (
+          <PrismicRichText field={quote.richText} />
+        ) : (
+          <p>{quote}</p>
+        )}
+      </div>
       <cite className="text-emerald-900 dark:text-emerald-200 text-sm not-italic flex justify-center items-center my-4 gap-4">
         {image && (
           <GatsbyImage
@@ -38,19 +43,10 @@ const Blockquote = ({
             imgClassName="rounded-full"
           />
         )}
-        {url ? <a href={url}>{author}</a> : { author }}
+        {url ? <a href={url}>{author}</a> : author}
       </cite>
     </blockquote>
   )
-}
-
-Blockquote.propTypes = {
-  quote: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  url: PropTypes.string,
-  image: PropTypes.object,
-  imageAlt: PropTypes.string,
-  className: PropTypes.string,
 }
 
 export default Blockquote

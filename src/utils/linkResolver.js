@@ -1,6 +1,9 @@
 exports.linkResolver = doc => {
-  if (doc.type === 'page') {
-    return `/${doc.uid}`
+  switch (doc.type) {
+    case 'homepage': {
+      return doc.lang === 'en-us' ? '/' : `/${doc.lang}/`
+    }
+    default:
+      return '/'
   }
-  return '/'
 }

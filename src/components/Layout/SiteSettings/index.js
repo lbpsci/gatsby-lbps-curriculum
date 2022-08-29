@@ -1,13 +1,26 @@
 import * as React from 'react'
-import { Link as TransLink, useI18next } from 'gatsby-plugin-react-i18next'
+import { Link } from 'gatsby'
+import { linkResolver } from '../../../utils/linkResolver'
 import { HiAdjustments } from 'react-icons/hi'
 import { FcCheckmark } from 'react-icons/fc'
 import DarkMode from './DarkMode'
 
 const SiteSettings = React.forwardRef(
-  ({ settingsOpen, setSettingsOpen, siteWrapper, className }, ref) => {
-    const [mode, setMode] = React.useState(null)
+  (
+    {
+      altLangs,
+      className,
+      lang,
+      path,
+      settingsOpen,
+      setSettingsOpen,
+      siteWrapper,
+    },
+    ref
+  ) => {
+    console.log('linkResolver says ... ', linkResolver('es-es'))
 
+    const [mode, setMode] = React.useState(null)
     React.useEffect(() => {
       const storedTheme = localStorage.getItem('theme')
       if (
@@ -34,8 +47,6 @@ const SiteSettings = React.forwardRef(
         }
       })
     }
-
-    const { languages, originalPath, i18n } = useI18next()
 
     return (
       <div
@@ -71,29 +82,26 @@ const SiteSettings = React.forwardRef(
                   setMode={setMode}
                 />
               </li>
-              {languages.map(lng => {
+              <li className="p-4 relative hover:bg-gray-50 dark:hover:bg-gray-900 grid grid-cols-2 items-center">
+                <Link to={`${path}`}>
+                  {lang === 'en-us'
+                    ? 'English'
+                    : lang === 'es-es'
+                    ? 'Español'
+                    : 'Português'}
+                </Link>
+              </li>
+              {altLangs.map(lng => {
                 return (
                   <li
+                    key={lng.id}
                     className="p-4 relative hover:bg-gray-50 dark:hover:bg-gray-900 grid grid-cols-2 items-center"
-                    key={lng}
                   >
-                    <FcCheckmark
-                      className={`w-8 h-8 justify-self-center ${
-                        i18n.resolvedLanguage !== lng ? `invisible` : ``
-                      }`}
-                    />
-                    <TransLink to={originalPath} language={lng} role="menuitem">
-                      {lng === 'en'
-                        ? 'English'
-                        : lng === 'es'
-                        ? 'Español'
-                        : 'Português'}
-                    </TransLink>
-                    {/* {i18n.resolvedLanguage === lng && (
-                      <span className="text-center animate-pulse">
-                        <GoTriangleUp className="inline" />
-                      </span>
-                    )} */}
+                    {lng.lang === 'en-us'
+                      ? 'English'
+                      : lng.lang === 'es-es'
+                      ? 'Español'
+                      : 'Português'}
                   </li>
                 )
               })}

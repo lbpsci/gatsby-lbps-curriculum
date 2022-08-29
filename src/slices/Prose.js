@@ -129,4 +129,13 @@ export const query = graphql`
       }
     }
   }
+  fragment PageDataBodyProse on PrismicPageDataBodyProse {
+    id
+    slice_type
+    primary {
+      prose_content {
+        richText
+      }
+    }
+  }
 `

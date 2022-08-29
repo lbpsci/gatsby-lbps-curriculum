@@ -5,9 +5,15 @@ import { HiChevronUp } from 'react-icons/hi'
 import { BsArrowReturnLeft } from 'react-icons/bs'
 import Footer from './Footer'
 
-const Layout = ({ children, siteTitle, path }) => {
+const Layout = ({
+  altLangs,
+  children,
+  districtName,
+  lang,
+  path,
+  siteTitle,
+}) => {
   const [isScrolled, setIsScrolled] = React.useState(false)
-
   React.useEffect(() => {
     window.addEventListener('scroll', toggleToTop)
     return () => {
@@ -45,12 +51,17 @@ const Layout = ({ children, siteTitle, path }) => {
           </button>
         </li>
       </ul>
-      <Navbar siteTitle={siteTitle} path={path} siteWrapper={siteWrapper} />
+      <Navbar
+        siteWrapper={siteWrapper}
+        altLangs={altLangs}
+        lang={lang}
+        path={path}
+      />
 
       <main id="main-content" className="dark:bg-gray-900">
         {children}
       </main>
-      <Footer />
+      <Footer districtName={districtName} />
       <button onClick={handleToTop}>
         <HiChevronUp
           className={`w-8 h-8 bg-emerald-900 bg-opacity-60 text-white rounded-full fixed bottom-6 right-6 motion-safe:transition motion-safe:duration-500 motion-safe:ease-in-out ${

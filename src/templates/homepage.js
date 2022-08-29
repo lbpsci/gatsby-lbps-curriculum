@@ -8,8 +8,8 @@ import { components } from '../slices'
 
 const HomepageTemplate = ({ data, path }) => {
   const {
-    site: {
-      siteMetadata: { siteTitle },
+    siteMetadata: {
+      data: { district_name, site_title },
     },
     prismicHomepage,
   } = data
@@ -17,7 +17,7 @@ const HomepageTemplate = ({ data, path }) => {
 
   return (
     <>
-      <Layout siteTitle={siteTitle} path={path}>
+      <Layout siteTitle={site_title} path={path} districtName={district_name}>
         <Hero {...document} />
         <SliceZone slices={document.body} components={components} />
       </Layout>
@@ -27,16 +27,25 @@ const HomepageTemplate = ({ data, path }) => {
 
 export function Head({
   data: {
-    site: { siteMetadata },
+    siteMetadata: { data },
+    prismicHomepage,
   },
   location,
 }) {
-  const { siteTitle } = siteMetadata
   const { pathname } = location
-
   return (
-    <Seo {...siteMetadata} pageTitle={'Home'} pathname={pathname}>
-      <title>{`Home | ${siteTitle}`}</title>
+    <Seo
+      {...data}
+      pageTitle={prismicHomepage.data.homepage_title.text}
+      pathname={pathname}
+    >
+      <title>{`${prismicHomepage.data.homepage_title.text} | ${
+        prismicHomepage.lang === 'en-us'
+          ? 'Curriculum & Instruction'
+          : prismicHomepage.lang === 'es-es'
+          ? 'Currículo e Instrucción'
+          : 'Currículo e Instrução'
+      }`}</title>
     </Seo>
   )
 }
@@ -46,23 +55,30 @@ export default HomepageTemplate
 
 export const query = graphql`
   query HomepageTemplateQuery($lang: String) {
-    site {
-      siteMetadata {
-        siteTitle
-        siteDescription
-        siteUrl
-        siteImage
+    siteMetadata: prismicSitemetadata(lang: { eq: $lang }) {
+      data {
+        district_name
+        site_description
+        site_social_image {
+          url
+        }
+        site_title
+        site_url
       }
     }
     prismicHomepage(lang: { eq: $lang }) {
       type
       lang
       alternate_languages {
+        id
         uid
         type
         lang
       }
       data {
+        homepage_title {
+          text
+        }
         hero_admin {
           text
         }

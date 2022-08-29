@@ -1,4 +1,3 @@
-const { languages, defaultLanguage } = require('./languages')
 const path = require('path')
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
@@ -9,11 +8,12 @@ module.exports = {
   flags: {
     // DEV_SSR: true,
   },
+  trailingSlash: 'always',
   siteMetadata: {
     siteTitle: 'Curriculum & Instruction',
     siteDescription:
       'The Long Branch Public Schools Curriculum & Instruction office is dedicated to helping all stakeholder receive helpful resources related to what we teach and how we teach it.',
-    siteUrl: 'https://dancing-lamington-049ad7.netlify.app/',
+    siteUrl: 'https://www.lb-ci.org',
     siteImage: 'defaultSiteImage.png',
   },
   plugins: [

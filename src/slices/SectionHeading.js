@@ -33,4 +33,13 @@ export const query = graphql`
       }
     }
   }
+  fragment PageDataBodySectionheading on PrismicPageDataBodySectionheading {
+    id
+    slice_type
+    primary {
+      heading_text {
+        richText
+      }
+    }
+  }
 `

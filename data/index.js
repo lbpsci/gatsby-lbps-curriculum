@@ -86,12 +86,12 @@ const mainMenu = [
       // },
     ],
   },
-  {
-    linkText: 'giftedAndTalented',
-    url: '/gifted/',
-    type: 'internal',
-    id: 4,
-  },
+  // {
+  //   linkText: 'giftedAndTalented',
+  //   url: '/gifted/',
+  //   type: 'internal',
+  //   id: 4,
+  // },
   {
     linkText: 'districtHomepage',
     url: 'https://www.longbranch.k12.nj.us',

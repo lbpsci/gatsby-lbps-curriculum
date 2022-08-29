@@ -3,6 +3,7 @@ import { Prose } from './Prose'
 import { DepartmentList } from './DepartmentList'
 import { ButtonLink } from './ButtonLink'
 import { Quote } from './Quote'
+import { SideBySideList } from './SideBySideList'
 
 export const components = {
   sectionheading: SectionHeading,
@@ -10,4 +11,5 @@ export const components = {
   department_list: DepartmentList,
   buttonlink: ButtonLink,
   quote: Quote,
+  side_by_side_lists: SideBySideList,
 }

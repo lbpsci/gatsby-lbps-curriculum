@@ -104,6 +104,7 @@ export const query = graphql`
           ...HomepageDataBodyDepartmentList
           ...HomepageDataBodyButtonlink
           ...HomepageDataBodyQuote
+          ...HomepageDataBodySideBySideLists
         }
       }
     }

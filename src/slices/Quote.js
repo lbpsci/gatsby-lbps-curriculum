@@ -8,7 +8,7 @@ export const Quote = ({ slice }) => {
     primary: {
       quote_author_name,
       quote_avatar: { alt, gatsbyImageData },
-      quote_link: { link_type, url },
+      quote_link: { url },
       quote_text,
     },
   } = slice

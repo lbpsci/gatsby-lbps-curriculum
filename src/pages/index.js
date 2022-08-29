@@ -13,7 +13,6 @@ const PrismicHomepage = ({ data, path }) => {
     },
     prismicHomepage,
   } = data
-  console.log('prismicHomepage ====> ', prismicHomepage)
   const document = prismicHomepage.data
 
   return (
@@ -100,6 +99,7 @@ export const query = graphql`
           ...HomepageDataBodyDepartmentList
           ...HomepageDataBodyButtonlink
           ...HomepageDataBodyQuote
+          ...HomepageDataBodySideBySideLists
         }
       }
     }

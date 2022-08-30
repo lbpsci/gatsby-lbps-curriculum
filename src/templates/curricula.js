@@ -42,7 +42,6 @@ const CurriculaTemplate = ({ data, path }) => {
       )
     },
   }
-  console.log('curricula_page ====> ', document)
   return (
     <>
       <Layout

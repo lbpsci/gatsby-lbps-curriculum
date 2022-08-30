@@ -6,7 +6,13 @@ import { mainMenu } from '../../../../data'
 import Heading from '../../Heading'
 import SiteSettings from '../SiteSettings'
 
-const Navbar = ({ activeDocMeta, path, siteWrapper }) => {
+const Navbar = ({
+  activeDocMeta,
+  districtName,
+  path,
+  siteWrapper,
+  siteTitle,
+}) => {
   const [isOpen, setIsOpen] = React.useState(false)
   const [settingsOpen, setSettingsOpen] = React.useState(false)
   const curriculumHome = React.useRef(null)
@@ -59,11 +65,9 @@ const Navbar = ({ activeDocMeta, path, siteWrapper }) => {
               level={1}
               className="sm:text-xl md:text-2xl lg:text-3xl font-semibold dark:text-white"
             >
-              Curricululm &amp; Instruction
+              {siteTitle}
             </Heading>
-            <p className="prose prose-sm dark:prose-invert">
-              Long Branch Public Schools
-            </p>
+            <p className="prose prose-sm dark:prose-invert">{districtName}</p>
           </div>
           {/* NAVBAR RIGHT - LOGO */}
           <div className="grid sm:grid-cols-2 gap-x-4 relative items-center">

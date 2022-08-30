@@ -54,6 +54,8 @@ const Layout = ({
       <Navbar
         siteWrapper={siteWrapper}
         activeDocMeta={activeDocMeta}
+        siteTitle={siteTitle}
+        districtName={districtName}
         path={path}
       />
 

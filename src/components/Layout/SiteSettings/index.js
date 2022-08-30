@@ -19,10 +19,6 @@ const SiteSettings = React.forwardRef(
   ) => {
     // console.log(activeDocMeta)
     const currentLang = activeDocMeta.lang
-    console.log(
-      'linkResolver says... ',
-      linkResolver(activeDocMeta.alternateLanguages[0])
-    )
     const [mode, setMode] = React.useState(null)
     React.useEffect(() => {
       const storedTheme = localStorage.getItem('theme')

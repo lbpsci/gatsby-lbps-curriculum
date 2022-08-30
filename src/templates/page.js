@@ -12,14 +12,22 @@ const PageTemplate = ({ data, path }) => {
     },
     prismicPage,
   } = data
+  const pageContent = prismicPage
+  const alternateLanguages = pageContent.alternate_languages || []
+  const { lang, type, url } = pageContent
+  const activeDoc = {
+    lang,
+    type,
+    url,
+    alternateLanguages,
+  }
   const document = prismicPage.data
   return (
     <Layout
       siteTitle={site_title}
       path={path}
       districtName={district_name}
-      altLangs={prismicPage.alternate_languages}
-      lang={prismicPage.lang}
+      activeDocMeta={activeDoc}
     >
       <SliceZone slices={document.body} components={components} />
     </Layout>
@@ -69,6 +77,7 @@ export const query = graphql`
     prismicPage(lang: { eq: $lang }) {
       type
       lang
+      url
       alternate_languages {
         id
         uid

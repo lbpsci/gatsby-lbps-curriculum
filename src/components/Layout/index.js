@@ -6,12 +6,12 @@ import { BsArrowReturnLeft } from 'react-icons/bs'
 import Footer from './Footer'
 
 const Layout = ({
-  altLangs,
   children,
   districtName,
   lang,
   path,
   siteTitle,
+  activeDocMeta,
 }) => {
   const [isScrolled, setIsScrolled] = React.useState(false)
   React.useEffect(() => {
@@ -53,8 +53,7 @@ const Layout = ({
       </ul>
       <Navbar
         siteWrapper={siteWrapper}
-        altLangs={altLangs}
-        lang={lang}
+        activeDocMeta={activeDocMeta}
         path={path}
       />
 

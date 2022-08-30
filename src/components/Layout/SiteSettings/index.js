@@ -8,9 +8,8 @@ import DarkMode from './DarkMode'
 const SiteSettings = React.forwardRef(
   (
     {
-      altLangs,
+      activeDocMeta,
       className,
-      lang,
       path,
       settingsOpen,
       setSettingsOpen,
@@ -18,8 +17,12 @@ const SiteSettings = React.forwardRef(
     },
     ref
   ) => {
-    console.log('linkResolver says ... ', linkResolver('es-es'))
-
+    // console.log(activeDocMeta)
+    const currentLang = activeDocMeta.lang
+    console.log(
+      'linkResolver says... ',
+      linkResolver(activeDocMeta.alternateLanguages[0])
+    )
     const [mode, setMode] = React.useState(null)
     React.useEffect(() => {
       const storedTheme = localStorage.getItem('theme')
@@ -83,25 +86,29 @@ const SiteSettings = React.forwardRef(
                 />
               </li>
               <li className="p-4 relative hover:bg-gray-50 dark:hover:bg-gray-900 grid grid-cols-2 items-center">
-                <Link to={`${path}`}>
-                  {lang === 'en-us'
+                <FcCheckmark className=" place-self-center" />
+                <span>
+                  {currentLang === 'en-us'
                     ? 'English'
-                    : lang === 'es-es'
+                    : currentLang === 'es-es'
                     ? 'Español'
                     : 'Português'}
-                </Link>
+                </span>
               </li>
-              {altLangs.map(lng => {
+              {activeDocMeta.alternateLanguages.map(altLang => {
                 return (
                   <li
-                    key={lng.id}
+                    key={altLang.id}
                     className="p-4 relative hover:bg-gray-50 dark:hover:bg-gray-900 grid grid-cols-2 items-center"
                   >
-                    {lng.lang === 'en-us'
-                      ? 'English'
-                      : lng.lang === 'es-es'
-                      ? 'Español'
-                      : 'Português'}
+                    <span />
+                    <Link to={linkResolver(altLang)}>
+                      {altLang.lang === 'en-us'
+                        ? 'English'
+                        : altLang.lang === 'es-es'
+                        ? 'Español'
+                        : 'Português'}
+                    </Link>
                   </li>
                 )
               })}

@@ -14,10 +14,23 @@ const HomepageTemplate = ({ data, path }) => {
     prismicHomepage,
   } = data
   const document = prismicHomepage.data
+  const alternateLanguages = prismicHomepage.alternate_languages || []
+  const { lang, type, url } = prismicHomepage
+  const activeDoc = {
+    lang,
+    type,
+    url,
+    alternateLanguages,
+  }
 
   return (
     <>
-      <Layout siteTitle={site_title} path={path} districtName={district_name}>
+      <Layout
+        siteTitle={site_title}
+        path={path}
+        districtName={district_name}
+        activeDocMeta={activeDoc}
+      >
         <Hero {...document} />
         <SliceZone slices={document.body} components={components} />
       </Layout>
@@ -69,6 +82,7 @@ export const query = graphql`
     prismicHomepage(lang: { eq: $lang }) {
       type
       lang
+      url
       alternate_languages {
         id
         uid

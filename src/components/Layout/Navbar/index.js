@@ -6,7 +6,7 @@ import { mainMenu } from '../../../../data'
 import Heading from '../../Heading'
 import SiteSettings from '../SiteSettings'
 
-const Navbar = ({ altLangs, lang, path, siteWrapper }) => {
+const Navbar = ({ activeDocMeta, path, siteWrapper }) => {
   const [isOpen, setIsOpen] = React.useState(false)
   const [settingsOpen, setSettingsOpen] = React.useState(false)
   const curriculumHome = React.useRef(null)
@@ -72,8 +72,7 @@ const Navbar = ({ altLangs, lang, path, siteWrapper }) => {
               setSettingsOpen={setSettingsOpen}
               siteWrapper={siteWrapper}
               ref={settingsBtn}
-              altLangs={altLangs}
-              lang={lang}
+              activeDocMeta={activeDocMeta}
               path={path}
             />
             <Link to="/" className="hidden sm:block">

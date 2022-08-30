@@ -80,4 +80,14 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       },
     })
   })
+  // queryData.data.allPrismicGradeSpan.nodes.forEach(page => {
+  //   createPage({
+  //     path: page.url,
+  //     component: path.resolve(__dirname, 'src/templates/page.js'),
+  //     context: {
+  //       id: page.id,
+  //       lang: page.lang,
+  //     },
+  //   })
+  // })
 }

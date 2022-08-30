@@ -8,6 +8,9 @@ exports.linkResolver = doc => {
     case 'homepage': {
       return doc.lang === 'en-us' ? '/' : `/${doc.lang}/`
     }
+    case 'curricula_page': {
+      return doc.lang === 'en-us' ? '/curricula' : `/${doc.lang}/curricula/`
+    }
     case 'page': {
       return doc.lang === 'en-us' ? `/${doc.uid}` : `/${doc.lang}/${doc.uid}/`
     }

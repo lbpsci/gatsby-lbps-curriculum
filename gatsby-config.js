@@ -42,20 +42,6 @@ module.exports = {
       __key: 'images',
     },
     {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/locales`,
-        name: `locale`,
-      },
-    },
-    {
-      resolve: `gatsby-source-google-spreadsheets`,
-      options: {
-        spreadsheetId: process.env.SPREADSHEET_ID,
-        credentials: keys,
-      },
-    },
-    {
       resolve: `gatsby-source-prismic`,
       options: {
         repositoryName: process.env.GATSBY_PRISMIC_REPO_NAME,

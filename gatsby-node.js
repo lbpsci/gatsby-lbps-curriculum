@@ -44,6 +44,20 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           url
         }
       }
+      allPrismicContentArea {
+        nodes {
+          id
+          lang
+          uid
+          data {
+            content_area_grade_spans {
+              content_area_grade_span {
+                uid
+              }
+            }
+          }
+        }
+      }
     }
   `)
   if (queryData.errors) {
@@ -89,6 +103,31 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         lang: page.lang,
         uid: page.uid,
       },
+    })
+  })
+  queryData.data.allPrismicContentArea.nodes.forEach(area => {
+    const {
+      data: { content_area_grade_spans },
+    } = area
+    content_area_grade_spans.forEach(span => {
+      const { content_area_grade_span } = span
+
+      createPage({
+        path: `${
+          area.lang === 'en-us'
+            ? '/'
+            : area.lang === 'es-es'
+            ? '/es-es/'
+            : '/pt-br/'
+        }curricula/${content_area_grade_span.uid}/${area.uid}`,
+        component: path.resolve(__dirname, 'src/templates/contentarea.js'),
+        context: {
+          id: area.id,
+          lang: area.lang,
+          uid: area.uid,
+          span: content_area_grade_span.uid,
+        },
+      })
     })
   })
 }

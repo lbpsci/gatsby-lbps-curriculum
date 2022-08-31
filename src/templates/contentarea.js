@@ -24,6 +24,7 @@ const ContentArea = ({ data, path }) => {
     url,
     alternateLanguages,
   }
+  console.log(areaContent)
   //   const allCurricula = allPrismicCurriculum.nodes.map(
   //     node => node.data.content_area.document.data.content_area_title.text
   //   )
@@ -32,7 +33,12 @@ const ContentArea = ({ data, path }) => {
 
   // console.log('gradespan data ===> ', data)
   return (
-    <Layout activeDocMeta={activeDoc}>
+    <Layout
+      siteTitle={site_title}
+      districtName={district_name}
+      activeDocMeta={activeDoc}
+      path={path}
+    >
       <p>MAIN CONTENT</p>
     </Layout>
   )
@@ -43,7 +49,7 @@ export default ContentArea
 export function Head({
   data: {
     siteMetadata: { data },
-    prismicGradeSpan,
+    prismicContentArea,
   },
   location,
 }) {
@@ -66,7 +72,12 @@ export function Head({
 }
 
 export const query = graphql`
-  query ContentAreaQuery($lang: String!, $id: String!, $uid: String!) {
+  query ContentAreaQuery(
+    $lang: String!
+    $id: String!
+    $uid: String!
+    $span: String!
+  ) {
     siteMetadata: prismicSitemetadata(lang: { eq: $lang }) {
       data {
         district_name
@@ -100,8 +111,8 @@ export const query = graphql`
     allPrismicCurriculum(
       filter: {
         data: {
-          grade_span: { uid: { eq: $uid } }
-          content_area: { uid: { eq: "english-language-arts" } }
+          grade_span: { uid: { eq: $span } }
+          content_area: { uid: { eq: $uid } }
         }
       }
     ) {
@@ -118,6 +129,21 @@ export const query = graphql`
                 }
               }
             }
+          }
+          curriculum_guide {
+            url
+          }
+          curriculum_title {
+            text
+          }
+          esl_appendix {
+            url
+          }
+          grade_span {
+            uid
+          }
+          pacing_calendar {
+            url
           }
         }
       }

@@ -32,7 +32,12 @@ const GradeSpan = ({ data, path }) => {
 
   // console.log('gradespan data ===> ', data)
   return (
-    <Layout activeDocMeta={activeDoc}>
+    <Layout
+      siteTitle={site_title}
+      districtName={district_name}
+      activeDocMeta={activeDoc}
+      path={path}
+    >
       <p>MAIN CONTENT</p>
     </Layout>
   )

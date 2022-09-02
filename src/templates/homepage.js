@@ -12,6 +12,7 @@ const HomepageTemplate = ({ data, path }) => {
       data: { district_name, site_title },
     },
     prismicHomepage,
+    prismicMainMenu,
   } = data
   const document = prismicHomepage.data
   const alternateLanguages = prismicHomepage.alternate_languages || []
@@ -30,6 +31,7 @@ const HomepageTemplate = ({ data, path }) => {
         path={path}
         districtName={district_name}
         activeDocMeta={activeDoc}
+        sideDrawer={prismicMainMenu.data}
       >
         <Hero {...document} />
         <SliceZone slices={document.body} components={components} />
@@ -135,6 +137,36 @@ export const query = graphql`
           ...HomepageDataBodyButtonlink
           ...HomepageDataBodyQuote
           ...HomepageDataBodySideBySideLists
+        }
+      }
+    }
+    prismicMainMenu {
+      data {
+        side_drawer_menu_logo {
+          gatsbyImageData(
+            height: 120
+            width: 120
+            layout: CONSTRAINED
+            placeholder: BLURRED
+          )
+        }
+        upper_side_drawer_menu_items {
+          upper_side_drawer_menu_item_text
+          menu_item {
+            url
+          }
+        }
+        lower_side_drawer_menu_items {
+          lower_side_drawer_menu_item_text
+          lower_menu_items {
+            url
+          }
+        }
+        side_drawer_grade_spans {
+          side_drawer_grade_span_text
+          side_drawer_grade_spans {
+            url
+          }
         }
       }
     }

@@ -12,6 +12,7 @@ const Layout = ({
   path,
   siteTitle,
   activeDocMeta,
+  sideDrawer,
 }) => {
   const [isScrolled, setIsScrolled] = React.useState(false)
   React.useEffect(() => {
@@ -57,6 +58,7 @@ const Layout = ({
         siteTitle={siteTitle}
         districtName={districtName}
         path={path}
+        sideDrawer={sideDrawer}
       />
 
       <main id="main-content" className="dark:bg-gray-900">

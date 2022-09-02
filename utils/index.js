@@ -103,6 +103,46 @@ const toggleVisible = setState => {
   }
 }
 
+const translateText = (text, lang) => {
+  if (text === 'curriculum guide') {
+    switch (lang) {
+      case 'pt-br': {
+        return 'guia curricular'
+      }
+      case 'es-es': {
+        return 'guía curricular'
+      }
+      default: {
+        return 'curriculum guide'
+      }
+    }
+  } else if (text === 'pacing calendar') {
+    switch (lang) {
+      case 'pt-br': {
+        return 'calendário de ritmo'
+      }
+      case 'es-es': {
+        return 'calendario de ritmo'
+      }
+      default: {
+        return 'pacing calendar'
+      }
+    }
+  } else if (text === 'esl appendix') {
+    switch (lang) {
+      case 'pt-br': {
+        return 'apêndice ESL'
+      }
+      case 'es-es': {
+        return 'apéndice ESL'
+      }
+      default: {
+        return 'esl appendix'
+      }
+    }
+  }
+}
+
 export {
   getDepartmentImages,
   getBreadcrumbs,
@@ -111,4 +151,5 @@ export {
   handleToTop,
   slugify,
   toggleVisible,
+  translateText,
 }

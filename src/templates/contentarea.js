@@ -1,13 +1,14 @@
 import React from 'react'
-import { graphql, Link } from 'gatsby'
-import { PrismicRichText } from '@prismicio/react'
+import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import Section from '../components/Section'
 import Seo from '../components/Seo'
 import Heading from '../components/Heading'
-import ButtonLink from '../components/ButtonLink'
+import { HiChevronRight } from 'react-icons/hi'
+import { FaCalendarAlt, FaFilePdf, FaPaperclip } from 'react-icons/fa'
+import { translateText } from '../../utils'
 
-const ContentArea = ({ data, path }) => {
+const ContentArea = ({ data, path, pageContext: { span } }) => {
   const {
     siteMetadata: {
       data: { district_name, site_title },
@@ -24,14 +25,7 @@ const ContentArea = ({ data, path }) => {
     url,
     alternateLanguages,
   }
-  console.log(areaContent)
-  //   const allCurricula = allPrismicCurriculum.nodes.map(
-  //     node => node.data.content_area.document.data.content_area_title.text
-  //   )
-  //   const uniqueCurricula = [...new Set(allCurricula)]
-  //   console.log(uniqueCurricula)
 
-  // console.log('gradespan data ===> ', data)
   return (
     <Layout
       siteTitle={site_title}
@@ -39,7 +33,78 @@ const ContentArea = ({ data, path }) => {
       activeDocMeta={activeDoc}
       path={path}
     >
-      <p>MAIN CONTENT</p>
+      <Section id="curricula">
+        <Heading
+          level={2}
+          className="text-center capitalize border-b py-4 md:py-6 lg:py-8 xl:py-10"
+        >
+          {span} {areaContent.data.content_area_title.text}
+        </Heading>
+        <div className="max-w-md mx-auto">
+          {!allPrismicCurriculum.nodes.length && <p>No Curricula Available</p>}
+          {allPrismicCurriculum.nodes.map(node => {
+            // console.log(node)
+            const {
+              id,
+              data: {
+                curriculum_guide,
+                curriculum_title,
+                esl_appendix,
+                pacing_calendar,
+              },
+            } = node
+            return (
+              <details key={id}>
+                <summary>
+                  <HiChevronRight className="inline w-6 h-6" />
+                  {curriculum_title.text}
+                </summary>
+                {curriculum_guide.url ||
+                pacing_calendar.url ||
+                esl_appendix.url ? (
+                  <ul>
+                    {curriculum_guide.url && (
+                      <li>
+                        <a href={curriculum_guide.url}>
+                          <FaFilePdf className="curriculum-icon w-8 h-8" />
+                          <span className="capitalize">
+                            {translateText(
+                              'curriculum guide',
+                              areaContent.lang
+                            )}
+                          </span>
+                        </a>
+                      </li>
+                    )}
+                    {pacing_calendar.url && (
+                      <li>
+                        <a href={pacing_calendar.url}>
+                          <FaCalendarAlt className="curriculum-icon w-8 h-8" />
+                          <span className="capitalize">
+                            {translateText('pacing calendar', areaContent.lang)}
+                          </span>
+                        </a>
+                      </li>
+                    )}
+                    {esl_appendix.url && (
+                      <li>
+                        <a href={esl_appendix.url}>
+                          <FaPaperclip className="curriculum-icon w-8 h-8" />
+                          <span className="capitalize">
+                            {translateText('esl appendix', areaContent.lang)}
+                          </span>
+                        </a>
+                      </li>
+                    )}
+                  </ul>
+                ) : (
+                  <p>No Documents</p>
+                )}
+              </details>
+            )
+          })}
+        </div>
+      </Section>
     </Layout>
   )
 }
@@ -52,6 +117,7 @@ export function Head({
     prismicContentArea,
   },
   location,
+  pageContext: { span },
 }) {
   const { pathname } = location
   return (
@@ -60,7 +126,9 @@ export function Head({
       pageTitle={prismicContentArea.data.content_area_title.text}
       pathname={pathname}
     >
-      <title>{`${prismicContentArea.data.content_area_title.text} | ${
+      <title>{`${span.toUpperCase()} ${
+        prismicContentArea.data.content_area_title.text
+      } | ${
         prismicContentArea.lang === 'en-us'
           ? 'Curriculum & Instruction'
           : prismicContentArea.lang === 'es-es'
@@ -117,6 +185,7 @@ export const query = graphql`
       }
     ) {
       nodes {
+        id
         data {
           content_area {
             document {

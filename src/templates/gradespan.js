@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, Link } from 'gatsby'
+import { graphql } from 'gatsby'
 import { PrismicRichText } from '@prismicio/react'
 import Layout from '../components/Layout'
 import Section from '../components/Section'
@@ -24,13 +24,16 @@ const GradeSpan = ({ data, path }) => {
     url,
     alternateLanguages,
   }
-  const allCurricula = allPrismicCurriculum.nodes.map(
-    node => node.data.content_area.document.data.content_area_title.text
-  )
-  const uniqueCurricula = [...new Set(allCurricula)]
-  console.log(uniqueCurricula)
-
-  // console.log('gradespan data ===> ', data)
+  const allCurricula = allPrismicCurriculum.nodes.map(node => {
+    return {
+      subjectTitle:
+        node.data.content_area.document.data.content_area_title.text,
+      subjectUid: node.data.content_area.document.uid,
+    }
+  })
+  const uniqueCurricula = [
+    ...new Map(allCurricula.map(item => [item['subjectUid'], item])).values(),
+  ]
   return (
     <Layout
       siteTitle={site_title}
@@ -38,7 +41,32 @@ const GradeSpan = ({ data, path }) => {
       activeDocMeta={activeDoc}
       path={path}
     >
-      <p>MAIN CONTENT</p>
+      ,
+      <div className="prose prose-emerald md:prose-lg lg:prose-xl xl:prose-2xl dark:prose-invert mx-auto py-4 md:py-6 lg:py-8 xl:py-10">
+        <Heading level={2} className="text-center">
+          {gradeSpanContent.data.grade_span_page_heading.text}
+        </Heading>
+        <PrismicRichText
+          field={gradeSpanContent.data.grade_span_page_intro.richText}
+        />
+      </div>
+      <Section headerText={gradeSpanContent.data.grade_span_divider_text.text}>
+        <ul className="max-w-screen-lg mx-auto my-4 md:my-6 lg:my-8 xl:my-10 grid md:grid-cols-2 gap-6 text-center mt-2">
+          {uniqueCurricula.map(curr => {
+            return (
+              <li key={curr.subjectUid}>
+                <ButtonLink
+                  type="Document"
+                  url={`${url}${curr.subjectUid}`}
+                  className="w-full"
+                >
+                  {curr.subjectTitle}
+                </ButtonLink>
+              </li>
+            )
+          })}
+        </ul>
+      </Section>
     </Layout>
   )
 }
@@ -125,6 +153,7 @@ export const query = graphql`
             document {
               ... on PrismicContentArea {
                 id
+                uid
                 data {
                   content_area_title {
                     text

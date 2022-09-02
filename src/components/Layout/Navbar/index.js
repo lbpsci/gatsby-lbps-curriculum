@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Link } from 'gatsby'
-import { StaticImage } from 'gatsby-plugin-image'
+import { GatsbyImage, getImage, StaticImage } from 'gatsby-plugin-image'
 import { HiChevronRight, HiMenu, HiX } from 'react-icons/hi'
 import { mainMenu } from '../../../../data'
 import Heading from '../../Heading'
@@ -12,7 +12,9 @@ const Navbar = ({
   path,
   siteWrapper,
   siteTitle,
+  sideDrawer,
 }) => {
+  console.log(sideDrawer)
   const [isOpen, setIsOpen] = React.useState(false)
   const [settingsOpen, setSettingsOpen] = React.useState(false)
   const curriculumHome = React.useRef(null)
@@ -45,6 +47,7 @@ const Navbar = ({
   }, [isOpen])
 
   let linkProps = !isOpen ? { tabIndex: -1 } : {}
+
   return (
     <>
       <nav className="shadow-sm text-emerald-900 dark:bg-emerald-900 dark:text-white py-6">
@@ -117,13 +120,9 @@ const Navbar = ({
           <span className="sr-only">Close navigation menu</span>
         </button>
         <Link to="/" ref={curriculumHome} {...linkProps}>
-          <StaticImage
-            src="../../../images/curriculum_logo.png"
-            width={120}
-            height={120}
-            layout="constrained"
-            placeholder="tracedSVG"
-            alt="The Office of Curriculum and Instruction Logo"
+          <GatsbyImage
+            image={getImage(sideDrawer.side_drawer_menu_logo.gatsbyImageData)}
+            alt={''}
           />
         </Link>
         <ul className="">

@@ -233,6 +233,7 @@ export const query = graphql`
           menu_item {
             id
             url
+            type
           }
         }
         lower_side_drawer_menu_items {
@@ -240,6 +241,7 @@ export const query = graphql`
           lower_menu_items {
             id
             url
+            type
           }
         }
         side_drawer_grade_spans {
@@ -247,6 +249,7 @@ export const query = graphql`
           side_drawer_grade_spans {
             id
             url
+            type
           }
         }
       }

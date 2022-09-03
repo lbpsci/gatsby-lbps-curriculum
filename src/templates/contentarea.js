@@ -15,6 +15,7 @@ const ContentArea = ({ data, path, pageContext: { span } }) => {
     },
     prismicContentArea,
     allPrismicCurriculum,
+    prismicMainMenu,
   } = data
   const areaContent = prismicContentArea
   const alternateLanguages = areaContent.alternate_languages || []
@@ -32,6 +33,7 @@ const ContentArea = ({ data, path, pageContext: { span } }) => {
       districtName={district_name}
       activeDocMeta={activeDoc}
       path={path}
+      sideDrawer={prismicMainMenu.data}
     >
       <Section id="curricula">
         <Heading
@@ -43,7 +45,6 @@ const ContentArea = ({ data, path, pageContext: { span } }) => {
         <div className="max-w-md mx-auto">
           {!allPrismicCurriculum.nodes.length && <p>No Curricula Available</p>}
           {allPrismicCurriculum.nodes.map(node => {
-            // console.log(node)
             const {
               id,
               data: {
@@ -212,6 +213,39 @@ export const query = graphql`
             uid
           }
           pacing_calendar {
+            url
+          }
+        }
+      }
+    }
+    prismicMainMenu {
+      data {
+        side_drawer_menu_logo {
+          gatsbyImageData(
+            height: 120
+            width: 120
+            layout: CONSTRAINED
+            placeholder: BLURRED
+          )
+        }
+        upper_side_drawer_menu_items {
+          upper_side_drawer_menu_item_text
+          menu_item {
+            id
+            url
+          }
+        }
+        lower_side_drawer_menu_items {
+          lower_side_drawer_menu_item_text
+          lower_menu_items {
+            id
+            url
+          }
+        }
+        side_drawer_grade_spans {
+          side_drawer_grade_span_text
+          side_drawer_grade_spans {
+            id
             url
           }
         }

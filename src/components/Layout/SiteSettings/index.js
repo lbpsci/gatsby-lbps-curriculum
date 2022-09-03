@@ -28,6 +28,7 @@ const SiteSettings = React.forwardRef(
           window.matchMedia('(prefers-color-scheme: dark)').matches)
       ) {
         siteWrapper.current.classList.add('dark')
+        siteWrapper.current.classList.add('dark:bg-gray-900')
         setMode('dark')
         if (!storedTheme) {
           localStorage.setItem('theme', 'dark')

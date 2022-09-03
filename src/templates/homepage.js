@@ -153,18 +153,21 @@ export const query = graphql`
         upper_side_drawer_menu_items {
           upper_side_drawer_menu_item_text
           menu_item {
+            id
             url
           }
         }
         lower_side_drawer_menu_items {
           lower_side_drawer_menu_item_text
           lower_menu_items {
+            id
             url
           }
         }
         side_drawer_grade_spans {
           side_drawer_grade_span_text
           side_drawer_grade_spans {
+            id
             url
           }
         }

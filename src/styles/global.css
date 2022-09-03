@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 html {
-  @apply scroll-smooth;
-  @apply motion-safe:scroll-auto;
+  @apply scroll-smooth motion-safe:scroll-auto;
 }
+
 section#curricula {
   @apply mb-[200px];
 }

@@ -14,6 +14,7 @@ const GradeSpan = ({ data, path }) => {
     },
     prismicGradeSpan,
     allPrismicCurriculum,
+    prismicMainMenu,
   } = data
   const gradeSpanContent = prismicGradeSpan
   const alternateLanguages = gradeSpanContent.alternate_languages || []
@@ -40,6 +41,7 @@ const GradeSpan = ({ data, path }) => {
       districtName={district_name}
       activeDocMeta={activeDoc}
       path={path}
+      sideDrawer={prismicMainMenu.data}
     >
       ,
       <div className="prose prose-emerald md:prose-lg lg:prose-xl xl:prose-2xl dark:prose-invert mx-auto py-4 md:py-6 lg:py-8 xl:py-10">
@@ -161,6 +163,39 @@ export const query = graphql`
                 }
               }
             }
+          }
+        }
+      }
+    }
+    prismicMainMenu {
+      data {
+        side_drawer_menu_logo {
+          gatsbyImageData(
+            height: 120
+            width: 120
+            layout: CONSTRAINED
+            placeholder: BLURRED
+          )
+        }
+        upper_side_drawer_menu_items {
+          upper_side_drawer_menu_item_text
+          menu_item {
+            id
+            url
+          }
+        }
+        lower_side_drawer_menu_items {
+          lower_side_drawer_menu_item_text
+          lower_menu_items {
+            id
+            url
+          }
+        }
+        side_drawer_grade_spans {
+          side_drawer_grade_span_text
+          side_drawer_grade_spans {
+            id
+            url
           }
         }
       }

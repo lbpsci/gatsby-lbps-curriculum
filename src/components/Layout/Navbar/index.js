@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Link } from 'gatsby'
 import { GatsbyImage, getImage, StaticImage } from 'gatsby-plugin-image'
 import { HiChevronRight, HiMenu, HiX } from 'react-icons/hi'
-import { mainMenu } from '../../../../data'
 import Heading from '../../Heading'
 import SiteSettings from '../SiteSettings'
 
@@ -14,7 +13,6 @@ const Navbar = ({
   siteTitle,
   sideDrawer,
 }) => {
-  console.log(sideDrawer)
   const [isOpen, setIsOpen] = React.useState(false)
   const [settingsOpen, setSettingsOpen] = React.useState(false)
   const curriculumHome = React.useRef(null)
@@ -126,51 +124,84 @@ const Navbar = ({
           />
         </Link>
         <ul className="">
-          {mainMenu.map(item => {
-            return (
-              <li key={item.id} className="my-8">
-                {item.type === 'internal' ? (
-                  <Link
-                    to={item.url}
-                    className="text-2xl capitalize"
-                    activeClassName="active-page "
-                    {...linkProps}
-                  >
-                    {item.linkText}
-                  </Link>
-                ) : (
-                  <a href={item.url} className="text-2xl" {...linkProps}>
-                    {item.linkText}
-                  </a>
-                )}
-                {item.subMenu && (
-                  <ul className="pl-4">
-                    {item.subMenu.map(subItem => {
-                      return (
-                        <li key={subItem.id} className="my-4 flex items-center">
-                          <HiChevronRight className="w-4 h-4" />
-                          {subItem.type === 'internal' ? (
-                            <Link
-                              to={subItem.url}
-                              className="text-2xl"
-                              activeClassName="active-page"
-                              {...linkProps}
-                            >
-                              {subItem.linkText}
-                            </Link>
-                          ) : (
-                            <a href={subItem.url} {...linkProps}>
-                              {subItem.linkText}
-                            </a>
-                          )}
-                        </li>
-                      )
-                    })}
-                  </ul>
-                )}
-              </li>
-            )
-          })}
+          {sideDrawer.upper_side_drawer_menu_items.map(
+            ({ menu_item, upper_side_drawer_menu_item_text }) => {
+              return (
+                <li key={menu_item.id} className="my-8">
+                  {menu_item.type ? (
+                    <Link
+                      to={menu_item.url}
+                      className="text-2xl capitalize"
+                      activeClassName="active-page "
+                      {...linkProps}
+                    >
+                      {upper_side_drawer_menu_item_text}
+                    </Link>
+                  ) : (
+                    <a href={menu_item.url} className="text-2xl" {...linkProps}>
+                      {upper_side_drawer_menu_item_text}
+                    </a>
+                  )}
+                </li>
+              )
+            }
+          )}
+          {sideDrawer.side_drawer_grade_spans.length && (
+            <ul className="pl-4">
+              {sideDrawer.side_drawer_grade_spans.map(
+                ({ side_drawer_grade_spans, side_drawer_grade_span_text }) => {
+                  return (
+                    <li
+                      key={side_drawer_grade_spans.id}
+                      className="my-4 flex items-center"
+                    >
+                      <HiChevronRight className="w-4 h-4" />
+                      {side_drawer_grade_spans.type ? (
+                        <Link
+                          to={side_drawer_grade_spans.url}
+                          className="text-2xl"
+                          activeClassName="active-page"
+                          {...linkProps}
+                        >
+                          {side_drawer_grade_span_text}
+                        </Link>
+                      ) : (
+                        <a href={side_drawer_grade_spans.url} {...linkProps}>
+                          {side_drawer_grade_span_text}
+                        </a>
+                      )}
+                    </li>
+                  )
+                }
+              )}
+            </ul>
+          )}
+          {sideDrawer.lower_side_drawer_menu_items.map(
+            ({ lower_menu_items, lower_side_drawer_menu_item_text }) => {
+              return (
+                <li key={lower_menu_items.id} className="my-8">
+                  {lower_menu_items.type ? (
+                    <Link
+                      to={lower_menu_items.url}
+                      className="text-2xl capitalize"
+                      activeClassName="active-page "
+                      {...linkProps}
+                    >
+                      {lower_side_drawer_menu_item_text}
+                    </Link>
+                  ) : (
+                    <a
+                      href={lower_menu_items.url}
+                      className="text-2xl"
+                      {...linkProps}
+                    >
+                      {lower_side_drawer_menu_item_text}
+                    </a>
+                  )}
+                </li>
+              )
+            }
+          )}
           <li>
             <button
               onClick={() => {

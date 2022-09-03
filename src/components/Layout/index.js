@@ -8,7 +8,7 @@ import Footer from './Footer'
 const Layout = ({
   children,
   districtName,
-  lang,
+  // lang,
   path,
   siteTitle,
   activeDocMeta,
@@ -61,7 +61,7 @@ const Layout = ({
         sideDrawer={sideDrawer}
       />
 
-      <main id="main-content" className="dark:bg-gray-900">
+      <main id="main-content" className="bg-inherit">
         {children}
       </main>
       <Footer districtName={districtName} />

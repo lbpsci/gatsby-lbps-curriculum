@@ -27,7 +27,7 @@ const PageTemplate = ({ data, path }) => {
 
   React.useEffect(() => {
     document.documentElement.setAttribute('lang', lang)
-  })
+  }, [lang])
   return (
     <Layout
       siteTitle={site_title}

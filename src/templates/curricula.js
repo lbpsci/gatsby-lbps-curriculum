@@ -48,7 +48,7 @@ const CurriculaTemplate = ({ data, location, path }) => {
 
   React.useEffect(() => {
     document.documentElement.setAttribute('lang', lang)
-  })
+  }, [lang])
   return (
     <>
       <Layout

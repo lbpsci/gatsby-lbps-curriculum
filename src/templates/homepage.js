@@ -27,7 +27,7 @@ const HomepageTemplate = ({ data, path }) => {
 
   React.useEffect(() => {
     document.documentElement.setAttribute('lang', lang)
-  })
+  }, [lang])
 
   return (
     <>

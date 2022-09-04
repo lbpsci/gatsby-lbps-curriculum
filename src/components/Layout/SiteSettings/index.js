@@ -103,9 +103,11 @@ const SiteSettings = React.forwardRef(
                       to={
                         activeDocMeta.type !== 'content_area'
                           ? linkResolver(altLang)
-                          : altLang.lang !== 'en-us'
-                          ? `/${altLang.lang}${path.substring(6)}`
-                          : `/${path.substring(7)}`
+                          : currentLang === 'en-us'
+                          ? `/${altLang.lang}${path}`
+                          : altLang.lang === 'en-us'
+                          ? `/${path.substring(7)}`
+                          : `/${altLang.lang}${path.substring(6)}`
                       }
                       className="grid grid-cols-3 p-4"
                     >

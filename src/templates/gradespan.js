@@ -41,7 +41,7 @@ const GradeSpan = ({ data, location: { pathname }, path }) => {
 
   React.useEffect(() => {
     document.documentElement.setAttribute('lang', lang)
-  })
+  }, [lang])
   return (
     <Layout
       siteTitle={site_title}

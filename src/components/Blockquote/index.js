@@ -22,7 +22,6 @@ const Blockquote = ({
   imageAlt,
   className = '',
 }) => {
-  console.log('quote text ====> ', quote)
   return (
     <blockquote
       className={`max-w-screen-sm my-4 md:my-6 lg:my-8 xl:my-10 p-4 md:p-6 shadow dark:shadow-emerald-600 relative rounded border dark:border-gray-500 mx-auto group ${className}`}

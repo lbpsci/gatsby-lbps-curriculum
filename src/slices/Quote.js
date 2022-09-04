@@ -3,7 +3,6 @@ import { graphql } from 'gatsby'
 import Blockquote from '../components/Blockquote'
 
 export const Quote = ({ slice }) => {
-  console.log(slice)
   const {
     primary: {
       quote_author_name,

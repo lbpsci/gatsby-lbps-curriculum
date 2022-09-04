@@ -80,7 +80,6 @@ export const Prose = ({ slice }) => {
       return <li className="text-red-400">{children}</li>
     },
     embed: ({ node }) => {
-      console.log('embed node ===> ', typeof node.oembed.html)
       if (node.oembed.provider_name === 'YouTube') {
         return (
           <div

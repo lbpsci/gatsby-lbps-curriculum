@@ -13,6 +13,7 @@ const Layout = ({
   siteTitle,
   activeDocMeta,
   sideDrawer,
+  topMenu,
 }) => {
   const [isScrolled, setIsScrolled] = React.useState(false)
   React.useEffect(() => {
@@ -29,7 +30,7 @@ const Layout = ({
     <div ref={siteWrapper} className="site-wrapper">
       <div className="flex flex-col min-h-screen space-between dark:bg-gray-900">
         <ul id="nav-access" className="relative">
-          <li className="">
+          <li>
             <button
               onClick={e => {
                 e.preventDefault()
@@ -60,6 +61,7 @@ const Layout = ({
           districtName={districtName}
           path={path}
           sideDrawer={sideDrawer}
+          topMenu={topMenu}
         />
         <main id="main-content" className="bg-inherit">
           {children}

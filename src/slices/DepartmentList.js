@@ -19,48 +19,49 @@ export const DepartmentList = ({ slice }) => {
   return (
     <div className="department-list">
       <ul className="divide-y">
-        {items.map(dept => {
-          const {
-            departments: {
-              document: {
-                data: {
-                  department_description,
-                  department_site_url,
-                  department_site_button_text,
-                  department_title,
-                  logo,
+        {items.length &&
+          items.map(dept => {
+            const {
+              departments: {
+                document: {
+                  data: {
+                    department_description,
+                    department_site_url,
+                    department_site_button_text,
+                    department_title,
+                    logo,
+                  },
+                  id,
                 },
-                id,
               },
-            },
-          } = dept
-          return (
-            <li key={id}>
-              <GatsbyImage
-                image={getImage(logo)}
-                alt=""
-                className="department-logo"
-              />
-              <div>
-                <Heading
-                  level={4}
-                  className="text-xl md:text-2xl lg:text-3xl font-light text-center my-4 md:my-6 lg:my-8"
-                >
-                  {department_title.text}
-                </Heading>
-
-                <PrismicRichText
-                  components={components}
-                  field={department_description.richText}
+            } = dept
+            return (
+              <li key={id}>
+                <GatsbyImage
+                  image={getImage(logo)}
+                  alt={logo.alt || ''}
+                  className="department-logo"
                 />
+                <div>
+                  <Heading
+                    level={4}
+                    className="text-xl md:text-2xl lg:text-3xl font-light text-center my-4 md:my-6 lg:my-8"
+                  >
+                    {department_title.text}
+                  </Heading>
 
-                <ButtonLink url={department_site_url.url}>
-                  {department_site_button_text}
-                </ButtonLink>
-              </div>
-            </li>
-          )
-        })}
+                  <PrismicRichText
+                    components={components}
+                    field={department_description.richText}
+                  />
+
+                  <ButtonLink url={department_site_url.url}>
+                    {department_site_button_text}
+                  </ButtonLink>
+                </div>
+              </li>
+            )
+          })}
       </ul>
     </div>
   )
@@ -88,6 +89,7 @@ export const query = graphql`
                 text
               }
               logo {
+                alt
                 gatsbyImageData(
                   width: 180
                   height: 180

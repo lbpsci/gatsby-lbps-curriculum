@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { graphql, Link } from 'gatsby'
 import { PrismicRichText } from '@prismicio/react'
 import Layout from '../components/Layout'
@@ -7,16 +7,18 @@ import Seo from '../components/Seo'
 import Heading from '../components/Heading'
 import ButtonLink from '../components/ButtonLink'
 import { HiBookOpen } from 'react-icons/hi'
+import Breadcrumb from '../components/Breadcrumb'
 
-const CurriculaTemplate = ({ data, path }) => {
+const CurriculaTemplate = ({ data, location, path }) => {
   const {
     siteMetadata: {
       data: { district_name, site_title },
     },
     prismicCurriculaPage,
     prismicMainMenu,
+    prismicTopMenu,
   } = data
-  const document = prismicCurriculaPage.data
+  const doc = prismicCurriculaPage.data
   const alternateLanguages = prismicCurriculaPage.alternate_languages || []
   const { lang, type, url } = prismicCurriculaPage
   const activeDoc = {
@@ -43,6 +45,10 @@ const CurriculaTemplate = ({ data, path }) => {
       )
     },
   }
+
+  React.useEffect(() => {
+    document.documentElement.setAttribute('lang', lang)
+  })
   return (
     <>
       <Layout
@@ -51,16 +57,18 @@ const CurriculaTemplate = ({ data, path }) => {
         districtName={district_name}
         activeDocMeta={activeDoc}
         sideDrawer={prismicMainMenu.data}
+        topMenu={prismicTopMenu.data}
       >
+        <Breadcrumb pathname={location.pathname} activeDoc={activeDoc} />
         <Section>
           <div className="prose prose-emerald md:prose-lg lg:prose-xl xl:prose-2xl  dark:prose-invert mx-auto my-4 md:my-6 lg:my-8">
             <PrismicRichText
               components={components}
-              field={document.curricula_page_intro.richText}
+              field={doc.curricula_page_intro.richText}
             />
           </div>
         </Section>
-        {document.curricula_grade_spans.map((span, i) => {
+        {doc.curricula_grade_spans.map((span, i) => {
           const {
             curricula_grade_span: {
               document: {
@@ -197,7 +205,9 @@ export const query = graphql`
         }
       }
     }
-    prismicMainMenu {
+    prismicMainMenu(lang: { eq: $lang }) {
+      type
+      lang
       data {
         side_drawer_menu_logo {
           gatsbyImageData(
@@ -230,6 +240,30 @@ export const query = graphql`
             url
             type
           }
+        }
+        close_menu_button
+      }
+    }
+    prismicTopMenu(lang: { eq: $lang }) {
+      alternate_languages {
+        lang
+        type
+      }
+      lang
+      data {
+        top_menu_light_mode_text
+        top_menu_dark_mode
+        top_menu_right_side_logo {
+          gatsbyImageData(
+            height: 48
+            width: 48
+            placeholder: BLURRED
+            layout: FIXED
+          )
+          alt
+        }
+        top_menu_logo_link {
+          url
         }
       }
     }

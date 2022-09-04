@@ -12,6 +12,7 @@ const PageTemplate = ({ data, path }) => {
     },
     prismicPage,
     prismicMainMenu,
+    prismicTopMenu,
   } = data
   const pageContent = prismicPage
   const alternateLanguages = pageContent.alternate_languages || []
@@ -22,7 +23,11 @@ const PageTemplate = ({ data, path }) => {
     url,
     alternateLanguages,
   }
-  const document = prismicPage.data
+  const doc = prismicPage.data
+
+  React.useEffect(() => {
+    document.documentElement.setAttribute('lang', lang)
+  })
   return (
     <Layout
       siteTitle={site_title}
@@ -30,8 +35,9 @@ const PageTemplate = ({ data, path }) => {
       districtName={district_name}
       activeDocMeta={activeDoc}
       sideDrawer={prismicMainMenu.data}
+      topMenu={prismicTopMenu.data}
     >
-      <SliceZone slices={document.body} components={components} />
+      <SliceZone slices={doc.body} components={components} />
     </Layout>
   )
 }
@@ -100,7 +106,7 @@ export const query = graphql`
         }
       }
     }
-    prismicMainMenu {
+    prismicMainMenu(lang: { eq: $lang }) {
       data {
         side_drawer_menu_logo {
           gatsbyImageData(
@@ -133,6 +139,29 @@ export const query = graphql`
             url
             type
           }
+        }
+      }
+    }
+    prismicTopMenu(lang: { eq: $lang }) {
+      alternate_languages {
+        lang
+        type
+      }
+      lang
+      data {
+        top_menu_light_mode_text
+        top_menu_dark_mode
+        top_menu_right_side_logo {
+          gatsbyImageData(
+            height: 48
+            width: 48
+            placeholder: BLURRED
+            layout: FIXED
+          )
+          alt
+        }
+        top_menu_logo_link {
+          url
         }
       }
     }

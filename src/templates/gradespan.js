@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { graphql } from 'gatsby'
 import { PrismicRichText } from '@prismicio/react'
 import Layout from '../components/Layout'
@@ -6,8 +6,9 @@ import Section from '../components/Section'
 import Seo from '../components/Seo'
 import Heading from '../components/Heading'
 import ButtonLink from '../components/ButtonLink'
+import Breadcrumb from '../components/Breadcrumb'
 
-const GradeSpan = ({ data, path }) => {
+const GradeSpan = ({ data, location: { pathname }, path }) => {
   const {
     siteMetadata: {
       data: { district_name, site_title },
@@ -15,6 +16,7 @@ const GradeSpan = ({ data, path }) => {
     prismicGradeSpan,
     allPrismicCurriculum,
     prismicMainMenu,
+    prismicTopMenu,
   } = data
   const gradeSpanContent = prismicGradeSpan
   const alternateLanguages = gradeSpanContent.alternate_languages || []
@@ -25,6 +27,7 @@ const GradeSpan = ({ data, path }) => {
     url,
     alternateLanguages,
   }
+
   const allCurricula = allPrismicCurriculum.nodes.map(node => {
     return {
       subjectTitle:
@@ -35,6 +38,10 @@ const GradeSpan = ({ data, path }) => {
   const uniqueCurricula = [
     ...new Map(allCurricula.map(item => [item['subjectUid'], item])).values(),
   ]
+
+  React.useEffect(() => {
+    document.documentElement.setAttribute('lang', lang)
+  })
   return (
     <Layout
       siteTitle={site_title}
@@ -42,8 +49,9 @@ const GradeSpan = ({ data, path }) => {
       activeDocMeta={activeDoc}
       path={path}
       sideDrawer={prismicMainMenu.data}
+      topMenu={prismicTopMenu.data}
     >
-      ,
+      <Breadcrumb pathname={pathname} activeDoc={activeDoc} />
       <div className="prose prose-emerald md:prose-lg lg:prose-xl xl:prose-2xl dark:prose-invert mx-auto py-4 md:py-6 lg:py-8 xl:py-10">
         <Heading level={2} className="text-center">
           {gradeSpanContent.data.grade_span_page_heading.text}
@@ -53,21 +61,35 @@ const GradeSpan = ({ data, path }) => {
         />
       </div>
       <Section headerText={gradeSpanContent.data.grade_span_divider_text.text}>
-        <ul className="max-w-screen-lg mx-auto my-4 md:my-6 lg:my-8 xl:my-10 grid md:grid-cols-2 gap-6 text-center mt-2">
-          {uniqueCurricula.map(curr => {
-            return (
-              <li key={curr.subjectUid}>
-                <ButtonLink
-                  type="Document"
-                  url={`${url}${curr.subjectUid}`}
-                  className="w-full"
-                >
-                  {curr.subjectTitle}
-                </ButtonLink>
-              </li>
-            )
-          })}
-        </ul>
+        {uniqueCurricula.length ? (
+          <ul className="max-w-screen-lg mx-auto my-4 md:my-6 lg:my-8 xl:my-10 grid md:grid-cols-2 gap-6 text-center mt-2">
+            {uniqueCurricula.map(curr => {
+              return (
+                <li key={curr.subjectUid}>
+                  <ButtonLink
+                    type="Document"
+                    url={`${url}${curr.subjectUid}`}
+                    className="w-full"
+                  >
+                    {curr.subjectTitle}
+                  </ButtonLink>
+                </li>
+              )
+            })}
+          </ul>
+        ) : lang === 'es-es' ? (
+          <p className="prose prose-emerald md:prose-lg lg:prose-xl xl:prose-2xl mx-auto">
+            Aún no hemos publicado ningún currículo. Por favor, revise luego.
+          </p>
+        ) : lang === 'pt-br' ? (
+          <p className="prose prose-emerald md:prose-lg lg:prose-xl xl:prose-2xl mx-auto">
+            Ainda não publicamos nenhum currículo. Por favor, volte em breve.
+          </p>
+        ) : (
+          <p className="prose prose-emerald md:prose-lg lg:prose-xl xl:prose-2xl mx-auto">
+            We have yet to publish any curricula. Please check back soon.
+          </p>
+        )}
       </Section>
     </Layout>
   )
@@ -147,7 +169,10 @@ export const query = graphql`
       }
     }
     allPrismicCurriculum(
-      filter: { data: { grade_span: { uid: { eq: $uid } } } }
+      filter: {
+        lang: { eq: $lang }
+        data: { grade_span: { uid: { eq: $uid } } }
+      }
     ) {
       nodes {
         data {
@@ -167,7 +192,8 @@ export const query = graphql`
         }
       }
     }
-    prismicMainMenu {
+    prismicMainMenu(lang: { eq: $lang }) {
+      lang
       data {
         side_drawer_menu_logo {
           gatsbyImageData(
@@ -200,6 +226,29 @@ export const query = graphql`
             url
             type
           }
+        }
+      }
+    }
+    prismicTopMenu(lang: { eq: $lang }) {
+      alternate_languages {
+        lang
+        type
+      }
+      lang
+      data {
+        top_menu_light_mode_text
+        top_menu_dark_mode
+        top_menu_right_side_logo {
+          gatsbyImageData(
+            height: 48
+            width: 48
+            placeholder: BLURRED
+            layout: FIXED
+          )
+          alt
+        }
+        top_menu_logo_link {
+          url
         }
       }
     }

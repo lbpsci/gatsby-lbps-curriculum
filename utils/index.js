@@ -116,6 +116,18 @@ const translateText = (text, lang) => {
         return 'curriculum guide'
       }
     }
+  } else if (text === 'home') {
+    switch (lang) {
+      case 'pt-br': {
+        return 'página inicial'
+      }
+      case 'es-es': {
+        return 'portada principal'
+      }
+      default: {
+        return 'home'
+      }
+    }
   } else if (text === 'pacing calendar') {
     switch (lang) {
       case 'pt-br': {
@@ -126,6 +138,18 @@ const translateText = (text, lang) => {
       }
       default: {
         return 'pacing calendar'
+      }
+    }
+  } else if (text === 'curricula') {
+    switch (lang) {
+      case 'pt-br': {
+        return 'currículos'
+      }
+      case 'es-es': {
+        return 'planes de estudio'
+      }
+      default: {
+        return 'curricula'
       }
     }
   } else if (text === 'esl appendix') {
@@ -140,6 +164,8 @@ const translateText = (text, lang) => {
         return 'esl appendix'
       }
     }
+  } else if (text === 'k-5' || text === '6-8' || text === '9-12') {
+    return text
   }
 }
 

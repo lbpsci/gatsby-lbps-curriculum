@@ -2,7 +2,6 @@ const path = require('path')
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 })
-const keys = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEYS)
 module.exports = {
   /* Your site config here */
   flags: {

@@ -14,10 +14,11 @@ const SiteSettings = React.forwardRef(
       settingsOpen,
       setSettingsOpen,
       siteWrapper,
+      lightMode,
+      darkMode,
     },
     ref
   ) => {
-    // console.log(activeDocMeta)
     const currentLang = activeDocMeta.lang
     const [mode, setMode] = React.useState(null)
     React.useEffect(() => {
@@ -28,7 +29,6 @@ const SiteSettings = React.forwardRef(
           window.matchMedia('(prefers-color-scheme: dark)').matches)
       ) {
         siteWrapper.current.classList.add('dark')
-        siteWrapper.current.classList.add('dark:bg-gray-900')
         setMode('dark')
         if (!storedTheme) {
           localStorage.setItem('theme', 'dark')
@@ -47,7 +47,6 @@ const SiteSettings = React.forwardRef(
         }
       })
     }
-
     return (
       <div
         className="relative"
@@ -80,11 +79,13 @@ const SiteSettings = React.forwardRef(
                   siteWrapper={siteWrapper}
                   mode={mode}
                   setMode={setMode}
+                  lightMode={lightMode}
+                  darkMode={darkMode}
                 />
               </li>
-              <li className="p-4 relative hover:bg-gray-50 dark:hover:bg-gray-900 grid grid-cols-2 items-center">
-                <FcCheckmark className=" place-self-center" />
-                <span>
+              <li className="p-4 relative hover:bg-gray-50 dark:hover:bg-gray-900 grid grid-cols-3 items-center">
+                <FcCheckmark className=" place-self-center col-span-1" />
+                <span className="col-span-2 text-right">
                   {currentLang === 'en-us'
                     ? 'English'
                     : currentLang === 'es-es'
@@ -96,15 +97,26 @@ const SiteSettings = React.forwardRef(
                 return (
                   <li
                     key={altLang.id}
-                    className="p-4 relative hover:bg-gray-50 dark:hover:bg-gray-900 grid grid-cols-2 items-center"
+                    className="relative hover:bg-gray-50 dark:hover:bg-gray-900 grid grid-cols-1 items-center"
                   >
-                    <span />
-                    <Link to={linkResolver(altLang)}>
-                      {altLang.lang === 'en-us'
-                        ? 'English'
-                        : altLang.lang === 'es-es'
-                        ? 'Español'
-                        : 'Português'}
+                    <Link
+                      to={
+                        activeDocMeta.type !== 'content_area'
+                          ? linkResolver(altLang)
+                          : altLang.lang !== 'en-us'
+                          ? `/${altLang.lang}${path.substring(6)}`
+                          : `/${path.substring(7)}`
+                      }
+                      className="grid grid-cols-3 p-4"
+                    >
+                      <span className="col-span-1" />
+                      <span className="text-right col-span-2">
+                        {altLang.lang === 'en-us'
+                          ? 'English'
+                          : altLang.lang === 'es-es'
+                          ? 'Español'
+                          : 'Português'}
+                      </span>
                     </Link>
                   </li>
                 )

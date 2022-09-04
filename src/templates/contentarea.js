@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import Section from '../components/Section'
@@ -7,8 +7,14 @@ import Heading from '../components/Heading'
 import { HiChevronRight } from 'react-icons/hi'
 import { FaCalendarAlt, FaFilePdf, FaPaperclip } from 'react-icons/fa'
 import { translateText } from '../../utils'
+import Breadcrumb from '../components/Breadcrumb'
 
-const ContentArea = ({ data, path, pageContext: { span } }) => {
+const ContentArea = ({
+  data,
+  location: { pathname },
+  path,
+  pageContext: { span },
+}) => {
   const {
     siteMetadata: {
       data: { district_name, site_title },
@@ -16,6 +22,7 @@ const ContentArea = ({ data, path, pageContext: { span } }) => {
     prismicContentArea,
     allPrismicCurriculum,
     prismicMainMenu,
+    prismicTopMenu,
   } = data
   const areaContent = prismicContentArea
   const alternateLanguages = areaContent.alternate_languages || []
@@ -27,6 +34,9 @@ const ContentArea = ({ data, path, pageContext: { span } }) => {
     alternateLanguages,
   }
 
+  React.useEffect(() => {
+    document.documentElement.setAttribute('lang', lang)
+  })
   return (
     <Layout
       siteTitle={site_title}
@@ -34,7 +44,13 @@ const ContentArea = ({ data, path, pageContext: { span } }) => {
       activeDocMeta={activeDoc}
       path={path}
       sideDrawer={prismicMainMenu.data}
+      topMenu={prismicTopMenu.data}
     >
+      <Breadcrumb
+        pathname={pathname}
+        contentArea={areaContent.data.content_area_title.text}
+        activeDoc={activeDoc}
+      />
       <Section id="curricula">
         <Heading
           level={2}
@@ -179,6 +195,7 @@ export const query = graphql`
     }
     allPrismicCurriculum(
       filter: {
+        lang: { eq: $lang }
         data: {
           grade_span: { uid: { eq: $span } }
           content_area: { uid: { eq: $uid } }
@@ -218,7 +235,8 @@ export const query = graphql`
         }
       }
     }
-    prismicMainMenu {
+    prismicMainMenu(lang: { eq: $lang }) {
+      lang
       data {
         side_drawer_menu_logo {
           gatsbyImageData(
@@ -251,6 +269,29 @@ export const query = graphql`
             url
             type
           }
+        }
+      }
+    }
+    prismicTopMenu(lang: { eq: $lang }) {
+      alternate_languages {
+        lang
+        type
+      }
+      lang
+      data {
+        top_menu_light_mode_text
+        top_menu_dark_mode
+        top_menu_right_side_logo {
+          gatsbyImageData(
+            height: 48
+            width: 48
+            placeholder: BLURRED
+            layout: FIXED
+          )
+          alt
+        }
+        top_menu_logo_link {
+          url
         }
       }
     }

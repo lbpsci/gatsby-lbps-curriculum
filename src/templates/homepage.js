@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import Seo from '../components/Seo'
@@ -13,8 +13,9 @@ const HomepageTemplate = ({ data, path }) => {
     },
     prismicHomepage,
     prismicMainMenu,
+    prismicTopMenu,
   } = data
-  const document = prismicHomepage.data
+  const doc = prismicHomepage.data
   const alternateLanguages = prismicHomepage.alternate_languages || []
   const { lang, type, url } = prismicHomepage
   const activeDoc = {
@@ -24,6 +25,10 @@ const HomepageTemplate = ({ data, path }) => {
     alternateLanguages,
   }
 
+  React.useEffect(() => {
+    document.documentElement.setAttribute('lang', lang)
+  })
+
   return (
     <>
       <Layout
@@ -32,9 +37,10 @@ const HomepageTemplate = ({ data, path }) => {
         districtName={district_name}
         activeDocMeta={activeDoc}
         sideDrawer={prismicMainMenu.data}
+        topMenu={prismicTopMenu.data}
       >
-        <Hero {...document} />
-        <SliceZone slices={document.body} components={components} />
+        <Hero {...doc} />
+        <SliceZone slices={doc.body} components={components} />
       </Layout>
     </>
   )
@@ -140,9 +146,12 @@ export const query = graphql`
         }
       }
     }
-    prismicMainMenu {
+    prismicMainMenu(lang: { eq: $lang }) {
+      lang
+      type
       data {
         side_drawer_menu_logo {
+          alt
           gatsbyImageData(
             height: 120
             width: 120
@@ -173,6 +182,30 @@ export const query = graphql`
             url
             type
           }
+        }
+        close_menu_button
+      }
+    }
+    prismicTopMenu(lang: { eq: $lang }) {
+      alternate_languages {
+        lang
+        type
+      }
+      lang
+      data {
+        top_menu_light_mode_text
+        top_menu_dark_mode
+        top_menu_right_side_logo {
+          alt
+          gatsbyImageData(
+            height: 48
+            width: 48
+            placeholder: BLURRED
+            layout: FIXED
+          )
+        }
+        top_menu_logo_link {
+          url
         }
       }
     }

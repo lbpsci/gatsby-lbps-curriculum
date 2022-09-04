@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Link } from 'gatsby'
-import { GatsbyImage, getImage, StaticImage } from 'gatsby-plugin-image'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { HiChevronRight, HiMenu, HiX } from 'react-icons/hi'
 import Heading from '../../Heading'
 import SiteSettings from '../SiteSettings'
@@ -12,6 +12,12 @@ const Navbar = ({
   siteWrapper,
   siteTitle,
   sideDrawer,
+  topMenu: {
+    top_menu_dark_mode,
+    top_menu_light_mode_text,
+    top_menu_right_side_logo,
+    top_menu_logo_link,
+  },
 }) => {
   const [isOpen, setIsOpen] = React.useState(false)
   const [settingsOpen, setSettingsOpen] = React.useState(false)
@@ -79,15 +85,13 @@ const Navbar = ({
               ref={settingsBtn}
               activeDocMeta={activeDocMeta}
               path={path}
+              lightMode={top_menu_light_mode_text}
+              darkMode={top_menu_dark_mode}
             />
-            <Link to="/" className="hidden sm:block">
-              <StaticImage
-                src="../../../images/lbps_logo.png"
-                className="w-12 h-12"
-                alt=""
-                width={48}
-                height={48}
-                placeholder="blurred"
+            <Link to={top_menu_logo_link.url} className="hidden sm:block">
+              <GatsbyImage
+                image={getImage(top_menu_right_side_logo.gatsbyImageData)}
+                alt={top_menu_right_side_logo.alt || ''}
               />
               <span className="sr-only">Return to Curriculum Home Page</span>
             </Link>
@@ -120,10 +124,10 @@ const Navbar = ({
         <Link to="/" ref={curriculumHome} {...linkProps}>
           <GatsbyImage
             image={getImage(sideDrawer.side_drawer_menu_logo.gatsbyImageData)}
-            alt={''}
+            alt={sideDrawer.side_drawer_menu_logo.alt || ''}
           />
         </Link>
-        <ul className="">
+        <ul className="p-4">
           {sideDrawer.upper_side_drawer_menu_items.map(
             ({ menu_item, upper_side_drawer_menu_item_text }) => {
               return (
@@ -213,7 +217,7 @@ const Navbar = ({
               }}
               {...linkProps}
             >
-              {'closeMenu'}
+              {sideDrawer.close_menu_button}
             </button>
           </li>
         </ul>
@@ -221,6 +225,5 @@ const Navbar = ({
     </>
   )
 }
-// PROP-TYPES
-// EXPORTS
+
 export default Navbar

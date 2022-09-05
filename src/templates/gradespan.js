@@ -38,6 +38,9 @@ const GradeSpan = ({ data, location: { pathname }, path }) => {
   const uniqueCurricula = [
     ...new Map(allCurricula.map(item => [item['subjectUid'], item])).values(),
   ]
+  uniqueCurricula.sort((a, b) => {
+    return a.subjectTitle.localeCompare(b.subjectTitle)
+  })
 
   React.useEffect(() => {
     document.documentElement.setAttribute('lang', lang)

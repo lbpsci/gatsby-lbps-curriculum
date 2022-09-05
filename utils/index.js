@@ -161,7 +161,7 @@ const translateText = (text, lang) => {
         return 'apéndice ESL'
       }
       default: {
-        return 'esl appendix'
+        return 'ESL appendix'
       }
     }
   } else if (text === 'k-5' || text === '6-8' || text === '9-12') {

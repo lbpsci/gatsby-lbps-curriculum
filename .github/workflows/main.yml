@@ -8,6 +8,7 @@ on:
   push:
     branches: ['main']
   repository_dispatch:
+  workflow_dispatch:
 
 env:
   PRISMIC_CUSTOM_TYPES_API_TOKEN: ${{secrets.PRISMIC_CUSTOM_TYPES_API_TOKEN }}

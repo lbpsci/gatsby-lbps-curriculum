@@ -201,6 +201,7 @@ export const query = graphql`
           content_area: { uid: { eq: $uid } }
         }
       }
+      sort: { order: ASC, fields: first_publication_date }
     ) {
       nodes {
         id

@@ -1,17 +1,26 @@
 import * as React from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
-import { useI18next } from 'gatsby-plugin-react-i18next'
-import { StaticImage } from 'gatsby-plugin-image'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { HiChevronRight, HiMenu, HiX } from 'react-icons/hi'
-import { mainMenu } from '../../../../data'
 import Heading from '../../Heading'
 import SiteSettings from '../SiteSettings'
 
-const Navbar = ({ siteWrapper }) => {
+const Navbar = ({
+  activeDocMeta,
+  districtName,
+  path,
+  siteWrapper,
+  siteTitle,
+  sideDrawer,
+  topMenu: {
+    top_menu_dark_mode,
+    top_menu_light_mode_text,
+    top_menu_right_side_logo,
+    top_menu_logo_link,
+  },
+}) => {
   const [isOpen, setIsOpen] = React.useState(false)
   const [settingsOpen, setSettingsOpen] = React.useState(false)
-  const { t } = useI18next()
   const curriculumHome = React.useRef(null)
   const settingsBtn = React.useRef(null)
   const toggleMenu = e => {
@@ -42,6 +51,7 @@ const Navbar = ({ siteWrapper }) => {
   }, [isOpen])
 
   let linkProps = !isOpen ? { tabIndex: -1 } : {}
+
   return (
     <>
       <nav className="shadow-sm text-emerald-900 dark:bg-emerald-900 dark:text-white py-6">
@@ -62,11 +72,9 @@ const Navbar = ({ siteWrapper }) => {
               level={1}
               className="sm:text-xl md:text-2xl lg:text-3xl font-semibold dark:text-white"
             >
-              {t('siteTitle')}
+              {siteTitle}
             </Heading>
-            <p className="prose prose-sm dark:prose-invert">
-              {t('districtName')}
-            </p>
+            <p className="prose prose-sm dark:prose-invert">{districtName}</p>
           </div>
           {/* NAVBAR RIGHT - LOGO */}
           <div className="grid sm:grid-cols-2 gap-x-4 relative items-center">
@@ -75,15 +83,15 @@ const Navbar = ({ siteWrapper }) => {
               setSettingsOpen={setSettingsOpen}
               siteWrapper={siteWrapper}
               ref={settingsBtn}
+              activeDocMeta={activeDocMeta}
+              path={path}
+              lightMode={top_menu_light_mode_text}
+              darkMode={top_menu_dark_mode}
             />
-            <Link to="/" className="hidden sm:block">
-              <StaticImage
-                src="../../../images/lbps_logo.png"
-                className="w-12 h-12"
-                alt=""
-                width={48}
-                height={48}
-                placeholder="blurred"
+            <Link to={top_menu_logo_link.url} className="hidden sm:block">
+              <GatsbyImage
+                image={getImage(top_menu_right_side_logo.gatsbyImageData)}
+                alt={top_menu_right_side_logo.alt || ''}
               />
               <span className="sr-only">Return to Curriculum Home Page</span>
             </Link>
@@ -114,61 +122,90 @@ const Navbar = ({ siteWrapper }) => {
           <span className="sr-only">Close navigation menu</span>
         </button>
         <Link to="/" ref={curriculumHome} {...linkProps}>
-          <StaticImage
-            src="../../../images/curriculum_logo.png"
-            width={120}
-            height={120}
-            layout="constrained"
-            placeholder="tracedSVG"
-            alt="The Office of Curriculum and Instruction Logo"
+          <GatsbyImage
+            image={getImage(sideDrawer.side_drawer_menu_logo.gatsbyImageData)}
+            alt={sideDrawer.side_drawer_menu_logo.alt || ''}
           />
         </Link>
-        <ul className="">
-          {mainMenu.map(item => {
-            return (
-              <li key={item.id} className="my-8">
-                {item.type === 'internal' ? (
-                  <Link
-                    to={item.url}
-                    className="text-2xl capitalize"
-                    activeClassName="active-page "
-                    {...linkProps}
-                  >
-                    {t(item.linkText)}
-                  </Link>
-                ) : (
-                  <a href={item.url} className="text-2xl" {...linkProps}>
-                    {t(item.linkText)}
-                  </a>
-                )}
-                {item.subMenu && (
-                  <ul className="pl-4">
-                    {item.subMenu.map(subItem => {
-                      return (
-                        <li key={subItem.id} className="my-4 flex items-center">
-                          <HiChevronRight className="w-4 h-4" />
-                          {subItem.type === 'internal' ? (
-                            <Link
-                              to={subItem.url}
-                              className="text-2xl"
-                              activeClassName="active-page"
-                              {...linkProps}
-                            >
-                              {t(subItem.linkText)}
-                            </Link>
-                          ) : (
-                            <a href={subItem.url} {...linkProps}>
-                              {t(subItem.linkText)}
-                            </a>
-                          )}
-                        </li>
-                      )
-                    })}
-                  </ul>
-                )}
-              </li>
-            )
-          })}
+        <ul className="p-4">
+          {sideDrawer.upper_side_drawer_menu_items.map(
+            ({ menu_item, upper_side_drawer_menu_item_text }) => {
+              return (
+                <li key={menu_item.id} className="my-8">
+                  {menu_item.type ? (
+                    <Link
+                      to={menu_item.url}
+                      className="text-2xl capitalize"
+                      activeClassName="active-page "
+                      {...linkProps}
+                    >
+                      {upper_side_drawer_menu_item_text}
+                    </Link>
+                  ) : (
+                    <a href={menu_item.url} className="text-2xl" {...linkProps}>
+                      {upper_side_drawer_menu_item_text}
+                    </a>
+                  )}
+                </li>
+              )
+            }
+          )}
+          {sideDrawer.side_drawer_grade_spans.length && (
+            <ul className="pl-4">
+              {sideDrawer.side_drawer_grade_spans.map(
+                ({ side_drawer_grade_spans, side_drawer_grade_span_text }) => {
+                  return (
+                    <li
+                      key={side_drawer_grade_spans.id}
+                      className="my-4 flex items-center"
+                    >
+                      <HiChevronRight className="w-4 h-4" />
+                      {side_drawer_grade_spans.type ? (
+                        <Link
+                          to={side_drawer_grade_spans.url}
+                          className="text-2xl"
+                          activeClassName="active-page"
+                          {...linkProps}
+                        >
+                          {side_drawer_grade_span_text}
+                        </Link>
+                      ) : (
+                        <a href={side_drawer_grade_spans.url} {...linkProps}>
+                          {side_drawer_grade_span_text}
+                        </a>
+                      )}
+                    </li>
+                  )
+                }
+              )}
+            </ul>
+          )}
+          {sideDrawer.lower_side_drawer_menu_items.map(
+            ({ lower_menu_items, lower_side_drawer_menu_item_text }) => {
+              return (
+                <li key={lower_menu_items.id} className="my-8">
+                  {lower_menu_items.type ? (
+                    <Link
+                      to={lower_menu_items.url}
+                      className="text-2xl capitalize"
+                      activeClassName="active-page "
+                      {...linkProps}
+                    >
+                      {lower_side_drawer_menu_item_text}
+                    </Link>
+                  ) : (
+                    <a
+                      href={lower_menu_items.url}
+                      className="text-2xl"
+                      {...linkProps}
+                    >
+                      {lower_side_drawer_menu_item_text}
+                    </a>
+                  )}
+                </li>
+              )
+            }
+          )}
           <li>
             <button
               onClick={() => {
@@ -180,7 +217,7 @@ const Navbar = ({ siteWrapper }) => {
               }}
               {...linkProps}
             >
-              {t('closeMenu')}
+              {sideDrawer.close_menu_button}
             </button>
           </li>
         </ul>
@@ -188,10 +225,5 @@ const Navbar = ({ siteWrapper }) => {
     </>
   )
 }
-// PROP-TYPES
-Navbar.propTypes = {
-  siteTitle: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
-}
-// EXPORTS
+
 export default Navbar

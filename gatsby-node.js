@@ -12,31 +12,122 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       .replace(/\-\-+/g, '-') // Replace multiple - with single -
   }
   const { createPage } = actions
-  const contentAreasResult = await graphql(`
+
+  const queryData = await graphql(`
     {
-      allGoogleCurriculaSheet(filter: { published: { eq: true } }) {
+      allPrismicHomepage {
         nodes {
-          contentArea
-          gradeSpan
+          id
+          lang
+          url
+        }
+      }
+      allPrismicCurriculaPage {
+        nodes {
+          id
+          lang
+          url
+        }
+      }
+      allPrismicPage {
+        nodes {
+          id
+          lang
+          url
+        }
+      }
+      allPrismicGradeSpan {
+        nodes {
+          id
+          lang
+          uid
+          url
+        }
+      }
+      allPrismicContentArea {
+        nodes {
+          id
+          lang
+          uid
+          data {
+            content_area_grade_spans {
+              content_area_grade_span {
+                uid
+              }
+            }
+          }
         }
       }
     }
   `)
-  if (contentAreasResult.errors) {
+  if (queryData.errors) {
     reporter.panicOnBuild(`ERROR WHILE RUNNING GRAPHQL QUERY`)
-    return
   }
-  const areas = contentAreasResult.data.allGoogleCurriculaSheet.nodes
-  if (areas.length) {
-    areas.forEach(({ gradeSpan, contentArea }) => {
+
+  queryData.data.allPrismicHomepage.nodes.forEach(homepage => {
+    createPage({
+      path: homepage.url,
+      component: path.resolve(__dirname, 'src/templates/homepage.js'),
+      context: {
+        id: homepage.id,
+        lang: homepage.lang,
+      },
+    })
+  })
+  queryData.data.allPrismicCurriculaPage.nodes.forEach(page => {
+    createPage({
+      path: page.url,
+      component: path.resolve(__dirname, 'src/templates/curricula.js'),
+      context: {
+        id: page.id,
+        lang: page.lang,
+      },
+    })
+  })
+  queryData.data.allPrismicPage.nodes.forEach(page => {
+    createPage({
+      path: page.url,
+      component: path.resolve(__dirname, 'src/templates/page.js'),
+      context: {
+        id: page.id,
+        lang: page.lang,
+      },
+    })
+  })
+  queryData.data.allPrismicGradeSpan.nodes.forEach(page => {
+    createPage({
+      path: page.url,
+      component: path.resolve(__dirname, 'src/templates/gradespan.js'),
+      context: {
+        id: page.id,
+        lang: page.lang,
+        uid: page.uid,
+      },
+    })
+  })
+  queryData.data.allPrismicContentArea.nodes.forEach(area => {
+    const {
+      data: { content_area_grade_spans },
+    } = area
+    content_area_grade_spans.forEach(span => {
+      const { content_area_grade_span } = span
+
       createPage({
-        path: `/curricula/${slugify(gradeSpan)}/${slugify(contentArea)}/`,
-        component: path.resolve('./src/templates/content-area-template.js'),
+        path: `${
+          area.lang === 'en-us'
+            ? '/'
+            : area.lang === 'es-es'
+            ? '/es-es/'
+            : '/pt-br/'
+        }curricula/${content_area_grade_span.uid}/${area.uid}`,
+        component: path.resolve(__dirname, 'src/templates/contentarea.js'),
         context: {
-          gradeSpan,
-          contentArea,
+          id: area.id,
+          lang: area.lang,
+          uid: area.uid,
+          span: content_area_grade_span.uid,
         },
       })
     })
-  }
+  })
 }

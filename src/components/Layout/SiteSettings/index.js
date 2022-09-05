@@ -1,13 +1,26 @@
 import * as React from 'react'
-import { Link as TransLink, useI18next } from 'gatsby-plugin-react-i18next'
+import { Link } from 'gatsby'
+import { linkResolver } from '../../../utils/linkResolver'
 import { HiAdjustments } from 'react-icons/hi'
 import { FcCheckmark } from 'react-icons/fc'
 import DarkMode from './DarkMode'
 
 const SiteSettings = React.forwardRef(
-  ({ settingsOpen, setSettingsOpen, siteWrapper, className }, ref) => {
+  (
+    {
+      activeDocMeta,
+      className,
+      path,
+      settingsOpen,
+      setSettingsOpen,
+      siteWrapper,
+      lightMode,
+      darkMode,
+    },
+    ref
+  ) => {
+    const currentLang = activeDocMeta.lang
     const [mode, setMode] = React.useState(null)
-
     React.useEffect(() => {
       const storedTheme = localStorage.getItem('theme')
       if (
@@ -34,9 +47,6 @@ const SiteSettings = React.forwardRef(
         }
       })
     }
-
-    const { languages, originalPath, i18n } = useI18next()
-
     return (
       <div
         className="relative"
@@ -69,31 +79,47 @@ const SiteSettings = React.forwardRef(
                   siteWrapper={siteWrapper}
                   mode={mode}
                   setMode={setMode}
+                  lightMode={lightMode}
+                  darkMode={darkMode}
                 />
               </li>
-              {languages.map(lng => {
+              <li className="p-4 relative hover:bg-gray-50 dark:hover:bg-gray-900 grid grid-cols-3 items-center">
+                <FcCheckmark className=" place-self-center col-span-1" />
+                <span className="col-span-2 text-right">
+                  {currentLang === 'en-us'
+                    ? 'English'
+                    : currentLang === 'es-es'
+                    ? 'Español'
+                    : 'Português'}
+                </span>
+              </li>
+              {activeDocMeta.alternateLanguages.map(altLang => {
                 return (
                   <li
-                    className="p-4 relative hover:bg-gray-50 dark:hover:bg-gray-900 grid grid-cols-2 items-center"
-                    key={lng}
+                    key={altLang.id}
+                    className="relative hover:bg-gray-50 dark:hover:bg-gray-900 grid grid-cols-1 items-center"
                   >
-                    <FcCheckmark
-                      className={`w-8 h-8 justify-self-center ${
-                        i18n.resolvedLanguage !== lng ? `invisible` : ``
-                      }`}
-                    />
-                    <TransLink to={originalPath} language={lng} role="menuitem">
-                      {lng === 'en'
-                        ? 'English'
-                        : lng === 'es'
-                        ? 'Español'
-                        : 'Português'}
-                    </TransLink>
-                    {/* {i18n.resolvedLanguage === lng && (
-                      <span className="text-center animate-pulse">
-                        <GoTriangleUp className="inline" />
+                    <Link
+                      to={
+                        activeDocMeta.type !== 'content_area'
+                          ? linkResolver(altLang)
+                          : currentLang === 'en-us'
+                          ? `/${altLang.lang}${path}`
+                          : altLang.lang === 'en-us'
+                          ? `/${path.substring(7)}`
+                          : `/${altLang.lang}${path.substring(6)}`
+                      }
+                      className="grid grid-cols-3 p-4"
+                    >
+                      <span className="col-span-1" />
+                      <span className="text-right col-span-2">
+                        {altLang.lang === 'en-us'
+                          ? 'English'
+                          : altLang.lang === 'es-es'
+                          ? 'Español'
+                          : 'Português'}
                       </span>
-                    )} */}
+                    </Link>
                   </li>
                 )
               })}

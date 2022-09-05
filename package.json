@@ -19,6 +19,8 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
+    "@prismicio/react": "^2.5.0",
+    "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/typography": "^0.5.4",
     "autoprefixer": "^10.4.7",
     "gatsby": "^4.19.0",
@@ -30,6 +32,7 @@
     "gatsby-plugin-sharp": "^4.19.0",
     "gatsby-source-filesystem": "^4.19.0",
     "gatsby-source-google-spreadsheets": "^3.0.8",
+    "gatsby-source-prismic": "^5.2.9",
     "gatsby-transformer-sharp": "^4.19.0",
     "i18next": "^21.9.0",
     "postcss": "^8.4.14",

@@ -1,9 +1,7 @@
 import * as React from 'react'
 import { StaticImage } from 'gatsby-plugin-image'
-import { useI18next } from 'gatsby-plugin-react-i18next'
 
-const Footer = () => {
-  const { t } = useI18next()
+const Footer = ({ districtName }) => {
   return (
     <footer className="bg-gray-900 dark:bg-gray-800 min-h-[100px] mt-auto flex place-items-center py-6">
       <div className="max-w-sm mx-auto flex flex-col items-center">
@@ -16,7 +14,7 @@ const Footer = () => {
           layout="fixed"
         />
         <p className="text-xs text-slate-100 text-center mt-4">
-          {t('districtName')} <br /> Together We Can, Juntos Nós Podemos, Juntos
+          {districtName} <br /> Together We Can, Juntos Nós Podemos, Juntos
           Podemos
         </p>
         <address className="text-slate-200 text-xs not-italic font-thin tracking-wide mt-2">

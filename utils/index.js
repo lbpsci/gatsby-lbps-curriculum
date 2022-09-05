@@ -103,6 +103,72 @@ const toggleVisible = setState => {
   }
 }
 
+const translateText = (text, lang) => {
+  if (text === 'curriculum guide') {
+    switch (lang) {
+      case 'pt-br': {
+        return 'guia curricular'
+      }
+      case 'es-es': {
+        return 'guía curricular'
+      }
+      default: {
+        return 'curriculum guide'
+      }
+    }
+  } else if (text === 'home') {
+    switch (lang) {
+      case 'pt-br': {
+        return 'página inicial'
+      }
+      case 'es-es': {
+        return 'portada principal'
+      }
+      default: {
+        return 'home'
+      }
+    }
+  } else if (text === 'pacing calendar') {
+    switch (lang) {
+      case 'pt-br': {
+        return 'calendário de ritmo'
+      }
+      case 'es-es': {
+        return 'calendario de ritmo'
+      }
+      default: {
+        return 'pacing calendar'
+      }
+    }
+  } else if (text === 'curricula') {
+    switch (lang) {
+      case 'pt-br': {
+        return 'currículos'
+      }
+      case 'es-es': {
+        return 'planes de estudio'
+      }
+      default: {
+        return 'curricula'
+      }
+    }
+  } else if (text === 'esl appendix') {
+    switch (lang) {
+      case 'pt-br': {
+        return 'apêndice ESL'
+      }
+      case 'es-es': {
+        return 'apéndice ESL'
+      }
+      default: {
+        return 'ESL appendix'
+      }
+    }
+  } else if (text === 'k-5' || text === '6-8' || text === '9-12') {
+    return text
+  }
+}
+
 export {
   getDepartmentImages,
   getBreadcrumbs,
@@ -111,4 +177,5 @@ export {
   handleToTop,
   slugify,
   toggleVisible,
+  translateText,
 }

@@ -36,7 +36,10 @@ export const DepartmentList = ({ slice }) => {
               },
             } = dept
             return (
-              <li key={id}>
+              <li
+                key={id}
+                className="flex flex-col md:flex-row justify-between items-center p-4 md:space-x-4 my-4 py-4 text-center"
+              >
                 <GatsbyImage
                   image={getImage(logo)}
                   alt={logo.alt || ''}

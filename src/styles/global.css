@@ -66,10 +66,6 @@ details[open] > summary > svg {
   @apply max-w-screen-md mx-auto;
 }
 
-.department-list li {
-  @apply flex flex-col md:flex-row justify-between items-center space-x-4 my-4 py-4 text-center;
-}
-
 .department-list .department-logo {
   @apply shrink-0 md:mr-4 mt-4;
 }

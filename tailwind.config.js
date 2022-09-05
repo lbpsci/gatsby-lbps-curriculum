@@ -4,6 +4,7 @@ module.exports = {
     './src/pages/**/*.{js,jsx,ts,tsx}',
     './src/components/**/*.{js,jsx,ts,tsx}',
     './src/templates/**/*.{js,jsx,ts,tsx}',
+    './src/slices/**/*.{js,jsx,ts,tsx}',
   ],
   darkMode: 'class',
   theme: {

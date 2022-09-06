@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { graphql } from 'gatsby'
+import { graphql, navigate } from 'gatsby'
 import Layout from '../components/Layout'
 import Seo from '../components/Seo'
 import { SliceZone } from '@prismicio/react'

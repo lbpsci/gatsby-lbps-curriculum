@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { graphql, Link } from 'gatsby'
+import { graphql, Link, navigate } from 'gatsby'
 import { PrismicRichText } from '@prismicio/react'
 import Layout from '../components/Layout'
 import Section from '../components/Section'

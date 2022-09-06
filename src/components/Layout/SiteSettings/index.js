@@ -56,13 +56,19 @@ const SiteSettings = React.forwardRef(
       >
         <button
           id="settingsBtn"
+          className="text-center"
           ref={ref}
           onClick={() => {
             setSettingsOpen(!settingsOpen)
             ref.current.focus()
           }}
         >
-          <HiAdjustments className="w-8 h-8" />
+          {activeDocMeta.lang === 'es-es'
+            ? 'Español'
+            : activeDocMeta.lang === 'pt-br'
+            ? 'Português'
+            : 'English'}
+          <HiAdjustments className="w-8 h-8 mx-auto" />
           <span className="sr-only">Activate Settings Menu</span>
         </button>
         {settingsOpen && (

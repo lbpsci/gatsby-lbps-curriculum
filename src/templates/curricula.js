@@ -48,6 +48,12 @@ const CurriculaTemplate = ({ data, location, path }) => {
 
   React.useEffect(() => {
     document.documentElement.setAttribute('lang', lang)
+    const langPref = localStorage.getItem('lang')
+    if (langPref) {
+      navigate(`/${langPref !== 'en-us' ? langPref : ``}`)
+    } else {
+      localStorage.setItem('lang', lang)
+    }
   }, [lang])
   return (
     <>

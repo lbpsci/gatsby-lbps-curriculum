@@ -115,6 +115,9 @@ const SiteSettings = React.forwardRef(
                           ? `/${path.substring(7)}`
                           : `/${altLang.lang}${path.substring(6)}`
                       }
+                      onClick={() => {
+                        localStorage.setItem('lang', altLang.lang)
+                      }}
                       className="grid grid-cols-3 p-4"
                     >
                       <span className="col-span-1" />

@@ -17,7 +17,7 @@ const Seo = ({
       <meta
         id="og-image"
         property="og:image"
-        content={`${site_url}/${site_social_image.url}`}
+        content={`${site_social_image.url}`}
       />
       <meta
         id="og-title"
@@ -30,7 +30,7 @@ const Seo = ({
       <meta
         id="twitter-image"
         property="twitter:image"
-        content={`${site_url}/${site_social_image.url}`}
+        content={`${site_social_image.url}`}
       />
       <meta id="twitter-card" property="twitter:card" content="summary" />
       <link rel="canonical" href={site_url + pathname} />

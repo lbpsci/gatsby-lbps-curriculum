@@ -37,12 +37,12 @@ const ContentArea = ({
   React.useEffect(() => {
     document.documentElement.setAttribute('lang', lang)
     const langPref = localStorage.getItem('lang')
-    if (langPref) {
-      navigate(`/${langPref !== 'en-us' ? langPref : ``}`)
+    if (langPref && langPref !== 'en-us' && url.indexOf(langPref) === -1) {
+      navigate(`/${langPref}${url}`)
     } else {
       localStorage.setItem('lang', lang)
     }
-  }, [lang])
+  }, [lang, url])
   return (
     <Layout
       siteTitle={site_title}

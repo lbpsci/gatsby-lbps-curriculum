@@ -47,7 +47,7 @@ export const DepartmentList = ({ slice }) => {
                 />
                 <div>
                   <Heading
-                    level={4}
+                    level={3}
                     className="text-xl md:text-2xl lg:text-3xl font-light text-center my-4 md:my-6 lg:my-8"
                   >
                     {department_title.text}

@@ -149,34 +149,39 @@ const Navbar = ({
             }
           )}
           {sideDrawer.side_drawer_grade_spans.length && (
-            <ul className="pl-4">
-              {sideDrawer.side_drawer_grade_spans.map(
-                ({ side_drawer_grade_spans, side_drawer_grade_span_text }) => {
-                  return (
-                    <li
-                      key={side_drawer_grade_spans.id}
-                      className="my-4 flex items-center"
-                    >
-                      <HiChevronRight className="w-4 h-4" />
-                      {side_drawer_grade_spans.type ? (
-                        <Link
-                          to={side_drawer_grade_spans.url}
-                          className="text-2xl"
-                          activeClassName="active-page"
-                          {...linkProps}
-                        >
-                          {side_drawer_grade_span_text}
-                        </Link>
-                      ) : (
-                        <a href={side_drawer_grade_spans.url} {...linkProps}>
-                          {side_drawer_grade_span_text}
-                        </a>
-                      )}
-                    </li>
-                  )
-                }
-              )}
-            </ul>
+            <li>
+              <ul className="pl-4">
+                {sideDrawer.side_drawer_grade_spans.map(
+                  ({
+                    side_drawer_grade_spans,
+                    side_drawer_grade_span_text,
+                  }) => {
+                    return (
+                      <li
+                        key={side_drawer_grade_spans.id}
+                        className="my-4 flex items-center"
+                      >
+                        <HiChevronRight className="w-4 h-4" />
+                        {side_drawer_grade_spans.type ? (
+                          <Link
+                            to={side_drawer_grade_spans.url}
+                            className="text-2xl"
+                            activeClassName="active-page"
+                            {...linkProps}
+                          >
+                            {side_drawer_grade_span_text}
+                          </Link>
+                        ) : (
+                          <a href={side_drawer_grade_spans.url} {...linkProps}>
+                            {side_drawer_grade_span_text}
+                          </a>
+                        )}
+                      </li>
+                    )
+                  }
+                )}
+              </ul>
+            </li>
           )}
           {sideDrawer.lower_side_drawer_menu_items.map(
             ({ lower_menu_items, lower_side_drawer_menu_item_text }) => {

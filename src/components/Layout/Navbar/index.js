@@ -121,12 +121,10 @@ const Navbar = ({
           <HiX className="absolute top-4 right-4 text-slate-300 w-6 h-6" />
           <span className="sr-only">Close navigation menu</span>
         </button>
-        <Link to="/" ref={curriculumHome} {...linkProps}>
-          <GatsbyImage
-            image={getImage(sideDrawer.side_drawer_menu_logo.gatsbyImageData)}
-            alt={sideDrawer.side_drawer_menu_logo.alt || ''}
-          />
-        </Link>
+        <GatsbyImage
+          image={getImage(sideDrawer.side_drawer_menu_logo.gatsbyImageData)}
+          alt={sideDrawer.side_drawer_menu_logo.alt || ''}
+        />
         <ul className="p-4">
           {sideDrawer.upper_side_drawer_menu_items.map(
             ({ menu_item, upper_side_drawer_menu_item_text }) => {

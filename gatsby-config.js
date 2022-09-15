@@ -16,6 +16,15 @@ module.exports = {
     siteImage: 'defaultSiteImage.png',
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-google-tagmanager`,
+      options: {
+        id: 'GTM-T6VM9HJ',
+        includeInDevelopment: false,
+        routeChangeEventName: 'gatsby-route-change',
+        enableWebVitalsTracking: true,
+      },
+    },
     `gatsby-plugin-image`,
     `gatsby-plugin-postcss`,
     `gatsby-plugin-netlify`,

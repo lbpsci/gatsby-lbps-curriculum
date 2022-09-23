@@ -71,12 +71,15 @@ const Layout = ({
           id="tracking-consent"
           className="fixed bottom-0 bg-slate-200 w-full min-h-[80px] animate-fade-up grid grid-cols-6 z-10"
         >
-          <p className="col-span-5 prose-sm prose-emerald p-4 md:p-6 lg:p-8">
-            Long Branch Public Schools would like to know how users are finding
-            and interacting with this site. In order to do that, it uses
-            cookies. We do not collect personally identifying information and no
-            data is sold to any parties. If you click accept, we will be able to
-            measure how are site is being used. See our{' '}
+          <p className="col-span-4 md:col-span-5 prose-sm prose-emerald p-4 md:p-6 lg:p-8">
+            <span className="hidden md:inline">
+              Long Branch Public Schools would like to know how users are
+              finding and interacting with this site. In order to do that, it
+              uses cookies. We do not collect personally identifying information
+              and no data is sold to any parties.
+            </span>{' '}
+            If you click accept, we will be able to measure how our site is
+            being used. See our{' '}
             <Link to="privacy" className="text-emerald-700">
               privacy policy
             </Link>{' '}
@@ -84,7 +87,7 @@ const Layout = ({
           </p>
           <button
             id="tracking-accepted"
-            className="col-span-1 bg-gray-100 hover:bg-slate-400 p-4 md:p-6 lg:p-8"
+            className="col-span-2 md:col-span-1 bg-gray-100 hover:bg-slate-400 p-4 md:p-6 lg:p-8"
           >
             Accept
           </button>

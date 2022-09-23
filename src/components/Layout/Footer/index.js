@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { StaticImage } from 'gatsby-plugin-image'
+import { Link } from 'gatsby'
 
 const Footer = ({ districtName }) => {
   return (
@@ -20,6 +21,12 @@ const Footer = ({ districtName }) => {
         <address className="text-slate-200 text-xs not-italic font-thin tracking-wide mt-2">
           540 Broadway Long Branch, NJ 07740
         </address>
+        <Link
+          to="privacy"
+          className="text-slate-200 text-xs not-italic font-thin tracking-wide mt-2"
+        >
+          Privacy Policy
+        </Link>
       </div>
     </footer>
   )

@@ -77,7 +77,7 @@ export const Prose = ({ slice }) => {
       return <li>{children}</li>
     },
     oListItem: ({ node, children }) => {
-      return <li className="text-red-400">{children}</li>
+      return <li className="text-emerald-700">{children}</li>
     },
     embed: ({ node }) => {
       if (node.oembed.provider_name === 'YouTube') {

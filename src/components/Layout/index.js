@@ -4,6 +4,7 @@ import { handleToTop, toggleVisible } from '../../../utils'
 import { HiChevronUp } from 'react-icons/hi'
 import { BsArrowReturnLeft } from 'react-icons/bs'
 import Footer from './Footer'
+import { Link } from 'gatsby'
 
 const Layout = ({
   children,
@@ -66,6 +67,22 @@ const Layout = ({
         <main id="main-content" className="bg-inherit">
           {children}
         </main>
+        <div className=".tracking-consent fixed bottom-0 bg-slate-200 w-full min-h-[80px] animate-fade-up grid grid-cols-6 z-10">
+          <p className="col-span-5 prose-sm prose-emerald p-4 md:p-6 lg:p-8">
+            Long Branch Public Schools would like to know how users are finding
+            and interacting with this site. In order to do that, it uses
+            cookies. We do not collect and personally identifying information
+            and no data is sold to any parties. If you click accept, we will be
+            able to measure how are site is being used. See our{' '}
+            <Link to="privacy" className="text-emerald-700">
+              privacy policy
+            </Link>{' '}
+            for more information.
+          </p>
+          <button className="accept-tracking col-span-1 bg-gray-100 hover:bg-slate-400 p-4 md:p-6 lg:p-8">
+            Accept
+          </button>
+        </div>
         <Footer districtName={districtName} />
         <button onClick={handleToTop}>
           <HiChevronUp

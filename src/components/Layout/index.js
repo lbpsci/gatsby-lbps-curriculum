@@ -16,7 +16,6 @@ const Layout = ({
   sideDrawer,
   topMenu,
 }) => {
-  console.log(activeDocMeta)
   const [isScrolled, setIsScrolled] = React.useState(false)
   React.useEffect(() => {
     window.addEventListener('scroll', toggleToTop)

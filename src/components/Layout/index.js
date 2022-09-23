@@ -88,7 +88,7 @@ const Layout = ({
               : activeDocMeta.lang === 'es-es'
               ? `Si hace clic en aceptar, podremos medir cómo se utiliza nuestro sitio. Vea nuestro`
               : `Se você clicar em aceitar, poderemos medir como nosso site está sendo usado. Veja nosso`}{' '}
-            <Link to="privacy" className="text-emerald-700">
+            <Link to="privacy" className="text-emerald-900 font-semibold">
               {activeDocMeta.lang === 'en-us'
                 ? `privacy policy`
                 : activeDocMeta.lang === 'es-es'

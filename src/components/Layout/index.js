@@ -71,9 +71,9 @@ const Layout = ({
           <p className="col-span-5 prose-sm prose-emerald p-4 md:p-6 lg:p-8">
             Long Branch Public Schools would like to know how users are finding
             and interacting with this site. In order to do that, it uses
-            cookies. We do not collect and personally identifying information
-            and no data is sold to any parties. If you click accept, we will be
-            able to measure how are site is being used. See our{' '}
+            cookies. We do not collect personally identifying information and no
+            data is sold to any parties. If you click accept, we will be able to
+            measure how are site is being used. See our{' '}
             <Link to="privacy" className="text-emerald-700">
               privacy policy
             </Link>{' '}

@@ -181,6 +181,7 @@ export const query = graphql`
       }
     }
     prismicContentArea(id: { eq: $id }, lang: { eq: $lang }) {
+      _previewable
       id
       type
       lang
@@ -210,6 +211,7 @@ export const query = graphql`
       sort: { order: ASC, fields: data___content_area_order }
     ) {
       nodes {
+        _previewable
         id
         data {
           content_area {
@@ -243,6 +245,7 @@ export const query = graphql`
       }
     }
     prismicMainMenu(lang: { eq: $lang }) {
+      _previewable
       lang
       data {
         side_drawer_menu_logo {
@@ -280,6 +283,7 @@ export const query = graphql`
       }
     }
     prismicTopMenu(lang: { eq: $lang }) {
+      _previewable
       alternate_languages {
         lang
         type

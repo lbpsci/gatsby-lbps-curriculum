@@ -1,4 +1,3 @@
-import './src/styles/global.css'
 import * as React from 'react'
 import {
   PrismicPreviewProvider,
@@ -30,3 +29,6 @@ export const wrapRootElement = ({ element }) => (
     {element}
   </PrismicPreviewProvider>
 )
+export const onRenderBody = ({ setHtmlAttributes }) => {
+  setHtmlAttributes({ lang: 'en-us' })
+}

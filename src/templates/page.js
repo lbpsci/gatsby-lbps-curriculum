@@ -7,7 +7,6 @@ import { components } from '../slices'
 import { withPrismicPreview } from 'gatsby-plugin-prismic-previews'
 
 const PageTemplate = ({ data, path }) => {
-  console.log('pageData ===> ', data)
   const {
     siteMetadata: {
       data: { district_name, site_title },

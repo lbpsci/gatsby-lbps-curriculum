@@ -75,10 +75,10 @@ export const Accordion = ({ slice }) => {
       )
     },
     listItem: ({ node, children }) => {
-      return <li>{children}</li>
+      return <li className="list-disc ml-8">{children}</li>
     },
     oListItem: ({ node, children }) => {
-      return <li className="text-emerald-700">{children}</li>
+      return <li className="list-decimal ml-8">{children}</li>
     },
     embed: ({ node }) => {
       if (node.oembed.provider_name === 'YouTube') {
@@ -113,7 +113,6 @@ export const Accordion = ({ slice }) => {
     primary: { accordion_description },
     items,
   } = slice
-  console.log(slice)
   return (
     <Section>
       <div className="max-w-screen-md mx-auto">

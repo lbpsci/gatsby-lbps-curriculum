@@ -92,6 +92,9 @@ const Navbar = ({
               <GatsbyImage
                 image={getImage(top_menu_right_side_logo.gatsbyImageData)}
                 alt={top_menu_right_side_logo.alt || ''}
+                width={48}
+                height={48}
+                className="w-12 h-12"
               />
               <span className="sr-only">Return to Curriculum Home Page</span>
             </Link>

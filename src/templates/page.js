@@ -4,8 +4,10 @@ import Layout from '../components/Layout'
 import Seo from '../components/Seo'
 import { SliceZone } from '@prismicio/react'
 import { components } from '../slices'
+import { withPrismicPreview } from 'gatsby-plugin-prismic-previews'
 
 const PageTemplate = ({ data, path }) => {
+  console.log('pageData ===> ', data)
   const {
     siteMetadata: {
       data: { district_name, site_title },
@@ -73,10 +75,10 @@ export function Head({
   )
 }
 
-export default PageTemplate
+export default withPrismicPreview(PageTemplate)
 
 export const query = graphql`
-  query PageTemplateQuery($lang: String!) {
+  query PageTemplateQuery($lang: String!, $id: String!) {
     siteMetadata: prismicSitemetadata(lang: { eq: $lang }) {
       data {
         district_name
@@ -88,7 +90,8 @@ export const query = graphql`
         site_url
       }
     }
-    prismicPage(lang: { eq: $lang }) {
+    prismicPage(id: { eq: $id }, lang: { eq: $lang }) {
+      _previewable
       type
       lang
       url
@@ -113,6 +116,7 @@ export const query = graphql`
       }
     }
     prismicMainMenu(lang: { eq: $lang }) {
+      _previewable
       data {
         side_drawer_menu_logo {
           gatsbyImageData(
@@ -149,6 +153,7 @@ export const query = graphql`
       }
     }
     prismicTopMenu(lang: { eq: $lang }) {
+      _previewable
       alternate_languages {
         lang
         type

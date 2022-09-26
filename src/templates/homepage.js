@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { graphql, navigate } from 'gatsby'
+import { withPrismicPreview } from 'gatsby-plugin-prismic-previews'
 import Layout from '../components/Layout'
 import Seo from '../components/Seo'
 import Hero from '../components/Hero'
@@ -78,7 +79,7 @@ export function Head({
 }
 
 // EXPORTS
-export default HomepageTemplate
+export default withPrismicPreview(HomepageTemplate)
 
 export const query = graphql`
   query HomepageTemplateQuery($lang: String) {
@@ -94,6 +95,7 @@ export const query = graphql`
       }
     }
     prismicHomepage(lang: { eq: $lang }) {
+      _previewable
       type
       lang
       url

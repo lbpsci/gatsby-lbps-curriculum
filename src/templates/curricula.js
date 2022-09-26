@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { graphql, Link, navigate } from 'gatsby'
 import { PrismicRichText } from '@prismicio/react'
+import { withPrismicPreview } from 'gatsby-plugin-prismic-previews'
 import Layout from '../components/Layout'
 import Section from '../components/Section'
 import Seo from '../components/Seo'
@@ -154,7 +155,7 @@ export function Head({
 }
 
 // EXPORTS
-export default CurriculaTemplate
+export default withPrismicPreview(CurriculaTemplate)
 
 export const query = graphql`
   query CurriculaTemplateQuery($lang: String) {
@@ -170,6 +171,7 @@ export const query = graphql`
       }
     }
     prismicCurriculaPage(lang: { eq: $lang }) {
+      _previewable
       type
       lang
       url
@@ -212,6 +214,7 @@ export const query = graphql`
       }
     }
     prismicMainMenu(lang: { eq: $lang }) {
+      _previewable
       type
       lang
       data {
@@ -251,6 +254,7 @@ export const query = graphql`
       }
     }
     prismicTopMenu(lang: { eq: $lang }) {
+      _previewable
       alternate_languages {
         lang
         type

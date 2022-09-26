@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { graphql, navigate } from 'gatsby'
 import { PrismicRichText } from '@prismicio/react'
+import { withPrismicPreview } from 'gatsby-plugin-prismic-previews'
 import Layout from '../components/Layout'
 import Section from '../components/Section'
 import Seo from '../components/Seo'
@@ -104,7 +105,7 @@ const GradeSpan = ({ data, location: { pathname }, path }) => {
   )
 }
 
-export default GradeSpan
+export default withPrismicPreview(GradeSpan)
 
 export function Head({
   data: {
@@ -145,6 +146,7 @@ export const query = graphql`
       }
     }
     prismicGradeSpan(id: { eq: $id }, lang: { eq: $lang }) {
+      _previewable
       id
       type
       lang
@@ -184,6 +186,7 @@ export const query = graphql`
       }
     ) {
       nodes {
+        _previewable
         data {
           content_area {
             document {
@@ -202,6 +205,7 @@ export const query = graphql`
       }
     }
     prismicMainMenu(lang: { eq: $lang }) {
+      _previewable
       lang
       data {
         side_drawer_menu_logo {
@@ -239,6 +243,7 @@ export const query = graphql`
       }
     }
     prismicTopMenu(lang: { eq: $lang }) {
+      _previewable
       alternate_languages {
         lang
         type

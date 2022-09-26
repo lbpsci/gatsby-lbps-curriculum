@@ -1,6 +1,7 @@
 import { graphql } from 'gatsby'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import * as React from 'react'
+import { withPrismicUnpublishedPreview } from 'gatsby-plugin-prismic-previews'
 import ButtonLink from '../components/ButtonLink'
 
 const NotFoundPage = ({
@@ -33,7 +34,7 @@ const NotFoundPage = ({
   )
 }
 
-export default NotFoundPage
+export default withPrismicUnpublishedPreview(NotFoundPage)
 
 export const NotFoundQuery = graphql`
   {

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { graphql, navigate } from 'gatsby'
+import { withPrismicPreview } from 'gatsby-plugin-prismic-previews'
 import Layout from '../components/Layout'
 import Section from '../components/Section'
 import Seo from '../components/Seo'
@@ -132,7 +133,7 @@ const ContentArea = ({
   )
 }
 
-export default ContentArea
+export default withPrismicPreview(ContentArea)
 
 export function Head({
   data: {

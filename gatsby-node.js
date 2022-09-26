@@ -63,7 +63,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   if (queryData.errors) {
     reporter.panicOnBuild(`ERROR WHILE RUNNING GRAPHQL QUERY`)
   }
-
+  console.log('PAGE NODES ==> ', queryData.data.allPrismicPage.nodes)
   queryData.data.allPrismicHomepage.nodes.forEach(homepage => {
     createPage({
       path: homepage.url,

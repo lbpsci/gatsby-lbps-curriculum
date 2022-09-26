@@ -49,4 +49,28 @@ export const query = graphql`
       }
     }
   }
+  fragment PageDataBodyQuote on PrismicPageDataBodyQuote {
+    id
+    slice_type
+    primary {
+      quote_author_name
+      quote_link {
+        link_type
+        url
+      }
+      quote_text {
+        richText
+        text
+      }
+      quote_avatar {
+        alt
+        gatsbyImageData(
+          placeholder: BLURRED
+          height: 35
+          width: 35
+          layout: FIXED
+        )
+      }
+    }
+  }
 `

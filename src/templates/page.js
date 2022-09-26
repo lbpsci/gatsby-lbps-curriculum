@@ -111,6 +111,10 @@ export const query = graphql`
         body {
           ...PageDataBodyProse
           ...PageDataBodySectionheading
+          ...PageDataBodyAccordion
+          ...PageDataBodyQuote
+          ...PageDataBodyButtonlink
+          ...PageDataBodySideBySideLists
         }
       }
     }

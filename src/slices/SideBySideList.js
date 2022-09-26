@@ -44,4 +44,22 @@ export const query = graphql`
       }
     }
   }
+  fragment PageDataBodySideBySideLists on PrismicPageDataBodySideBySideLists {
+    id
+    slice_type
+    primary {
+      left_list {
+        richText
+      }
+      left_list_title {
+        text
+      }
+      right_list {
+        richText
+      }
+      right_list_title {
+        text
+      }
+    }
+  }
 `

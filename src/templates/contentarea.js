@@ -78,17 +78,17 @@ const ContentArea = ({
               },
             } = node
             return (
-              <details key={id}>
-                <summary>
+              <details key={id} className="max-w-sm mx-auto my-6">
+                <summary className="text-xl flex items-center p-4 bg-emerald-900 text-white list-none rounded-t cursor-pointer">
                   <HiChevronRight className="inline w-6 h-6" />
                   {curriculum_title.text}
                 </summary>
                 {curriculum_guide.url ||
                 pacing_calendar.url ||
                 esl_appendix.url ? (
-                  <ul>
+                  <ul className="mx-4 divide-y">
                     {curriculum_guide.url && (
-                      <li>
+                      <li className="p-4 rounded text-emerald-900 dark:text-white text-lg hover:bg-gray-50 dark:hover:bg-gray-800">
                         <a href={curriculum_guide.url}>
                           <FaFilePdf className="curriculum-icon w-8 h-8" />
                           <span className="capitalize">
@@ -101,7 +101,7 @@ const ContentArea = ({
                       </li>
                     )}
                     {pacing_calendar.url && (
-                      <li>
+                      <li className="p-4 rounded text-emerald-900 dark:text-white text-lg hover:bg-gray-50 dark:hover:bg-gray-800">
                         <a href={pacing_calendar.url}>
                           <FaCalendarAlt className="curriculum-icon w-8 h-8" />
                           <span className="capitalize">
@@ -111,7 +111,7 @@ const ContentArea = ({
                       </li>
                     )}
                     {esl_appendix.url && (
-                      <li>
+                      <li className="p-4 rounded text-emerald-900 dark:text-white text-lg hover:bg-gray-50 dark:hover:bg-gray-800">
                         <a href={esl_appendix.url}>
                           <FaPaperclip className="curriculum-icon w-8 h-8" />
                           <span className="capitalize">

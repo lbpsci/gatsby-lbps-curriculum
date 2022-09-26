@@ -1,3 +1,4 @@
+import { Accordion } from './Accordion'
 import { SectionHeading } from './SectionHeading'
 import { Prose } from './Prose'
 import { DepartmentList } from './DepartmentList'
@@ -6,6 +7,7 @@ import { Quote } from './Quote'
 import { SideBySideList } from './SideBySideList'
 
 export const components = {
+  accordion: Accordion,
   sectionheading: SectionHeading,
   prose: Prose,
   department_list: DepartmentList,

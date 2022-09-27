@@ -45,7 +45,7 @@ export const Prose = ({ slice }) => {
     paragraph: ({ node, children }) => {
       return (
         <p
-          className={`prose prose-emerald md:prose-lg lg:prose-xl xl:prose-2xl dark:prose-invert mx-auto `}
+          className={`prose prose-emerald md:prose-lg lg:prose-xl xl:prose-2xl dark:prose-invert mx-auto my-4 md:my-6 lg:my-8 xl:my-10`}
         >
           {children}
         </p>

@@ -212,6 +212,67 @@ const Navbar = ({
               )
             }
           )}
+          {sideDrawer.lower_side_drawer_sub_items.length && (
+            <li>
+              <ul className="pl-4">
+                {sideDrawer.lower_side_drawer_sub_items.map(
+                  ({
+                    lower_menu_sub_item,
+                    lower_side_drawer_sub_item_text,
+                  }) => {
+                    return (
+                      <li
+                        key={lower_menu_sub_item.id}
+                        className="my-4 flex items-center"
+                      >
+                        <HiChevronRight className="w-4 h-4" />
+                        {lower_menu_sub_item.type ? (
+                          <Link
+                            to={lower_menu_sub_item.url}
+                            className="text-2xl"
+                            activeClassName="active-page"
+                            {...linkProps}
+                          >
+                            {lower_side_drawer_sub_item_text}
+                          </Link>
+                        ) : (
+                          <a href={lower_menu_sub_item.url} {...linkProps}>
+                            {lower_side_drawer_sub_item_text}
+                          </a>
+                        )}
+                      </li>
+                    )
+                  }
+                )}
+              </ul>
+            </li>
+          )}
+          {sideDrawer.bottom_side_drawer_menu_items.map(
+            ({ bottom_menu_item, bottom_menu_item_text }) => {
+              return (
+                <li key={bottom_menu_item.id} className="my-8">
+                  {bottom_menu_item.type ? (
+                    <Link
+                      to={bottom_menu_item.url}
+                      className="text-2xl capitalize"
+                      activeClassName="active-page "
+                      {...linkProps}
+                    >
+                      {bottom_menu_item_text}
+                    </Link>
+                  ) : (
+                    <a
+                      href={bottom_menu_item.url}
+                      className="text-2xl"
+                      {...linkProps}
+                    >
+                      {bottom_menu_item_text}
+                    </a>
+                  )}
+                </li>
+              )
+            }
+          )}
           <li>
             <button
               onClick={() => {

@@ -15,6 +15,7 @@ const PageTemplate = ({ data, path }) => {
     prismicMainMenu,
     prismicTopMenu,
   } = data
+  console.log(prismicMainMenu)
   const pageContent = prismicPage
   const alternateLanguages = pageContent.alternate_languages || []
   const { lang, type, url } = pageContent
@@ -153,6 +154,23 @@ export const query = graphql`
             type
           }
         }
+        lower_side_drawer_sub_items {
+          lower_side_drawer_sub_item_text
+          lower_menu_sub_item {
+            id
+            url
+            type
+          }
+        }
+        bottom_side_drawer_menu_items {
+          bottom_menu_item_text
+          bottom_menu_item {
+            id
+            type
+            url
+          }
+        }
+        close_menu_button
       }
     }
     prismicTopMenu(lang: { eq: $lang }) {

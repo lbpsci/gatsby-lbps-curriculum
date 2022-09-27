@@ -67,52 +67,54 @@ const Layout = ({
         <main id="main-content" className="bg-inherit">
           {children}
         </main>
-        <div
-          id="tracking-consent"
-          className="fixed bottom-0 bg-slate-200 w-full min-h-[80px] animate-fade-up grid grid-cols-6 z-10"
-        >
-          <p className="col-span-4 md:col-span-5 prose-sm prose-emerald p-4 md:p-6 lg:p-8">
-            <span className="hidden md:inline">
-              {activeDocMeta.lang === 'en-us'
-                ? `Long Branch Public Schools would like to know how users are
+        {process.env.NODE_ENV !== 'development' && (
+          <div
+            id="tracking-consent"
+            className="fixed bottom-0 bg-slate-200 w-full min-h-[80px] animate-fade-up grid grid-cols-6 z-10"
+          >
+            <p className="col-span-4 md:col-span-5 prose-sm prose-emerald p-4 md:p-6 lg:p-8">
+              <span className="hidden md:inline">
+                {activeDocMeta.lang === 'en-us'
+                  ? `Long Branch Public Schools would like to know how users are
               finding and interacting with this site. In order to do that, it
               uses cookies. We do not collect personally identifying information
               and no data is sold to any parties.`
-                : activeDocMeta.lang === 'es-es'
-                ? `Las Escuelas Públicas de Long Branch quisieran saber cómo los usuarios encuentran e interactúan con este sitio. Para ello utiliza cookies. No recopilamos información de identificación personal y no se vende ningún dato a ninguna parte.`
-                : `As Escolas Públicas Long Branch gostariam de saber como os usuários estão encontrando e interagindo com este site. Para isso, utiliza cookies. Não coletamos informações de identificação pessoal e nenhum dado é vendido a terceiros.`}
-            </span>{' '}
-            {activeDocMeta.lang === 'en-us'
-              ? `If you click accept, we will be able to measure how our site is
-            being used. See our`
-              : activeDocMeta.lang === 'es-es'
-              ? `Si hace clic en aceptar, podremos medir cómo se utiliza nuestro sitio. Vea nuestro`
-              : `Se você clicar em aceitar, poderemos medir como nosso site está sendo usado. Veja nosso`}{' '}
-            <Link to="privacy" className="text-emerald-900 font-semibold">
+                  : activeDocMeta.lang === 'es-es'
+                  ? `Las Escuelas Públicas de Long Branch quisieran saber cómo los usuarios encuentran e interactúan con este sitio. Para ello utiliza cookies. No recopilamos información de identificación personal y no se vende ningún dato a ninguna parte.`
+                  : `As Escolas Públicas Long Branch gostariam de saber como os usuários estão encontrando e interagindo com este site. Para isso, utiliza cookies. Não coletamos informações de identificação pessoal e nenhum dado é vendido a terceiros.`}
+              </span>{' '}
               {activeDocMeta.lang === 'en-us'
-                ? `privacy policy`
+                ? `If you click accept, we will be able to measure how our site is
+            being used. See our`
                 : activeDocMeta.lang === 'es-es'
-                ? `política de privacidad`
-                : `política de Privacidade`}
-            </Link>{' '}
-            {activeDocMeta.lang === 'en-us'
-              ? `for more information`
-              : activeDocMeta.lang === 'es-es'
-              ? `para más información`
-              : `Para maiores informações`}
-            .
-          </p>
-          <button
-            id="tracking-accepted"
-            className="col-span-2 md:col-span-1 bg-gray-100 hover:bg-slate-400 p-4 md:p-6 lg:p-8"
-          >
-            {activeDocMeta.lang === 'en-us'
-              ? `Accept`
-              : activeDocMeta.lang === 'es-es'
-              ? `aceptar`
-              : `aceitar`}
-          </button>
-        </div>
+                ? `Si hace clic en aceptar, podremos medir cómo se utiliza nuestro sitio. Vea nuestro`
+                : `Se você clicar em aceitar, poderemos medir como nosso site está sendo usado. Veja nosso`}{' '}
+              <Link to="privacy" className="text-emerald-900 font-semibold">
+                {activeDocMeta.lang === 'en-us'
+                  ? `privacy policy`
+                  : activeDocMeta.lang === 'es-es'
+                  ? `política de privacidad`
+                  : `política de Privacidade`}
+              </Link>{' '}
+              {activeDocMeta.lang === 'en-us'
+                ? `for more information`
+                : activeDocMeta.lang === 'es-es'
+                ? `para más información`
+                : `Para maiores informações`}
+              .
+            </p>
+            <button
+              id="tracking-accepted"
+              className="col-span-2 md:col-span-1 bg-gray-100 hover:bg-slate-400 p-4 md:p-6 lg:p-8"
+            >
+              {activeDocMeta.lang === 'en-us'
+                ? `Accept`
+                : activeDocMeta.lang === 'es-es'
+                ? `aceptar`
+                : `aceitar`}
+            </button>
+          </div>
+        )}
         <Footer districtName={districtName} />
         <button onClick={handleToTop}>
           <HiChevronUp

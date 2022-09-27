@@ -114,7 +114,7 @@ const Navbar = ({
       )}
       {/* OFF-CANVAS / SIDE DRAWER MENU */}
       <aside
-        className={`absolute top-0 z-10 h-screen  bg-gradient-to-b from-emerald-800 via-emerald-900 to-gray-900 transition ease-in-out duration-500 w-[260px] md:w-[400px] flex flex-col justify-center items-center text-white ${
+        className={`fixed top-0 z-10 min-h-screen max-h-full overflow-y-auto bg-gradient-to-b from-emerald-800 via-emerald-900 to-gray-900 transition ease-in-out duration-500 w-[260px] md:w-[400px] flex flex-col justify-center items-center text-white ${
           isOpen
             ? ' -translate-x-[0px]'
             : ' -translate-x-[260px] md:-translate-x-[400px]'

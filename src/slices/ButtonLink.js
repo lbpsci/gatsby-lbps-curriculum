@@ -30,4 +30,15 @@ export const query = graphql`
       }
     }
   }
+  fragment PageDataBodyButtonlink on PrismicPageDataBodyButtonlink {
+    id
+    slice_type
+    primary {
+      button_link_text
+      button_link_url {
+        link_type
+        url
+      }
+    }
+  }
 `

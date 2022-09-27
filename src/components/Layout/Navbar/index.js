@@ -151,7 +151,7 @@ const Navbar = ({
               )
             }
           )}
-          {sideDrawer.side_drawer_grade_spans.length && (
+          {sideDrawer.side_drawer_grade_spans.length ? (
             <li>
               <ul className="pl-4">
                 {sideDrawer.side_drawer_grade_spans.map(
@@ -185,34 +185,38 @@ const Navbar = ({
                 )}
               </ul>
             </li>
+          ) : (
+            ``
           )}
-          {sideDrawer.lower_side_drawer_menu_items.map(
-            ({ lower_menu_items, lower_side_drawer_menu_item_text }) => {
-              return (
-                <li key={lower_menu_items.id} className="my-8">
-                  {lower_menu_items.type ? (
-                    <Link
-                      to={lower_menu_items.url}
-                      className="text-2xl capitalize"
-                      activeClassName="active-page "
-                      {...linkProps}
-                    >
-                      {lower_side_drawer_menu_item_text}
-                    </Link>
-                  ) : (
-                    <a
-                      href={lower_menu_items.url}
-                      className="text-2xl"
-                      {...linkProps}
-                    >
-                      {lower_side_drawer_menu_item_text}
-                    </a>
-                  )}
-                </li>
+          {sideDrawer.lower_side_drawer_menu_items.length
+            ? sideDrawer.lower_side_drawer_menu_items.map(
+                ({ lower_menu_items, lower_side_drawer_menu_item_text }) => {
+                  return (
+                    <li key={lower_menu_items.id} className="my-8">
+                      {lower_menu_items.type ? (
+                        <Link
+                          to={lower_menu_items.url}
+                          className="text-2xl capitalize"
+                          activeClassName="active-page "
+                          {...linkProps}
+                        >
+                          {lower_side_drawer_menu_item_text}
+                        </Link>
+                      ) : (
+                        <a
+                          href={lower_menu_items.url}
+                          className="text-2xl"
+                          {...linkProps}
+                        >
+                          {lower_side_drawer_menu_item_text}
+                        </a>
+                      )}
+                    </li>
+                  )
+                }
               )
-            }
-          )}
-          {sideDrawer.lower_side_drawer_sub_items.length && (
+            : ``}
+          {sideDrawer.lower_side_drawer_sub_items.length ? (
             <li>
               <ul className="pl-4">
                 {sideDrawer.lower_side_drawer_sub_items.map(
@@ -246,33 +250,37 @@ const Navbar = ({
                 )}
               </ul>
             </li>
+          ) : (
+            ``
           )}
-          {sideDrawer.bottom_side_drawer_menu_items.map(
-            ({ bottom_menu_item, bottom_menu_item_text }) => {
-              return (
-                <li key={bottom_menu_item.id} className="my-8">
-                  {bottom_menu_item.type ? (
-                    <Link
-                      to={bottom_menu_item.url}
-                      className="text-2xl capitalize"
-                      activeClassName="active-page "
-                      {...linkProps}
-                    >
-                      {bottom_menu_item_text}
-                    </Link>
-                  ) : (
-                    <a
-                      href={bottom_menu_item.url}
-                      className="text-2xl"
-                      {...linkProps}
-                    >
-                      {bottom_menu_item_text}
-                    </a>
-                  )}
-                </li>
+          {sideDrawer.bottom_side_drawer_menu_items.length
+            ? sideDrawer.bottom_side_drawer_menu_items.map(
+                ({ bottom_menu_item, bottom_menu_item_text }) => {
+                  return (
+                    <li key={bottom_menu_item.id} className="my-8">
+                      {bottom_menu_item.type ? (
+                        <Link
+                          to={bottom_menu_item.url}
+                          className="text-2xl capitalize"
+                          activeClassName="active-page "
+                          {...linkProps}
+                        >
+                          {bottom_menu_item_text}
+                        </Link>
+                      ) : (
+                        <a
+                          href={bottom_menu_item.url}
+                          className="text-2xl"
+                          {...linkProps}
+                        >
+                          {bottom_menu_item_text}
+                        </a>
+                      )}
+                    </li>
+                  )
+                }
               )
-            }
-          )}
+            : ``}
           <li>
             <button
               onClick={() => {

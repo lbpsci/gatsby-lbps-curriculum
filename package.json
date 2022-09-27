@@ -7,7 +7,7 @@
   "author": {
     "name": "Neil Mastroianni",
     "email": "neil@neilmastroianni.com",
-    "url": "https://neilmastroianni.com"
+    "url": "https://www.neilmastroianni.com"
   },
   "scripts": {
     "build": "gatsby build",

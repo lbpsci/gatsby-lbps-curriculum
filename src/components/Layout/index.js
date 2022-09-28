@@ -16,7 +16,6 @@ const Layout = ({
   sideDrawer,
   topMenu,
 }) => {
-  console.log('layout!!!!', sideDrawer)
   const [isScrolled, setIsScrolled] = React.useState(false)
   React.useEffect(() => {
     window.addEventListener('scroll', toggleToTop)

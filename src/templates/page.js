@@ -15,7 +15,6 @@ const PageTemplate = ({ data, path }) => {
     prismicMainMenu,
     prismicTopMenu,
   } = data
-  console.log(prismicMainMenu)
   const pageContent = prismicPage
   const alternateLanguages = pageContent.alternate_languages || []
   const { lang, type, url } = pageContent

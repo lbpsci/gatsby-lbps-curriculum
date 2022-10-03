@@ -8,17 +8,16 @@ const Seo = ({
   pageTitle,
   site_url,
   pathname,
+  page_meta_image,
 }) => {
+  console.log('PAGE META IMAGE = ', page_meta_image)
+  const meta_image = page_meta_image || site_social_image
   return (
     <>
       {/* OG TAGS */}
       <meta property="og:url" content={site_url} />
       <meta property="og:type" content={`website`} />
-      <meta
-        id="og-image"
-        property="og:image"
-        content={`${site_social_image.url}`}
-      />
+      <meta id="og-image" property="og:image" content={`${meta_image.url}`} />
       <meta
         id="og-title"
         property="og:title"
@@ -30,7 +29,7 @@ const Seo = ({
       <meta
         id="twitter-image"
         property="twitter:image"
-        content={`${site_social_image.url}`}
+        content={`${meta_image.url}`}
       />
       <meta id="twitter-card" property="twitter:card" content="summary" />
       <link rel="canonical" href={site_url + pathname} />

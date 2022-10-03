@@ -57,9 +57,11 @@ export function Head({
   location,
 }) {
   const { pathname } = location
+  console.log(prismicPage)
   return (
     <Seo
       {...data}
+      page_meta_image={prismicPage.data.page_meta_image}
       pageTitle={prismicPage.data.page_title.text}
       pathname={pathname}
     >

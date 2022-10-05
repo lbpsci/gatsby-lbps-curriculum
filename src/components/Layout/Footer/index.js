@@ -22,7 +22,7 @@ const Footer = ({ districtName }) => {
           540 Broadway Long Branch, NJ 07740
         </address>
         <Link
-          to="privacy"
+          to="/privacy"
           className="text-slate-200 text-xs not-italic font-thin tracking-wide mt-2"
         >
           Privacy Policy

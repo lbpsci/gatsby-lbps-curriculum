@@ -57,7 +57,6 @@ export function Head({
   location,
 }) {
   const { pathname } = location
-  console.log(prismicPage)
   return (
     <Seo
       {...data}

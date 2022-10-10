@@ -48,6 +48,9 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-advanced-sitemap`,
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: 'images',

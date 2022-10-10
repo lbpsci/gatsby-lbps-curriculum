@@ -10,7 +10,6 @@ const Seo = ({
   pathname,
   page_meta_image,
 }) => {
-  console.log('PAGE META IMAGE = ', page_meta_image)
   const meta_image = page_meta_image || site_social_image
   return (
     <>
